@@ -7,6 +7,7 @@ import CurateCard from '@/components/card/curate-card.vue';
 import { getCurations } from '@/utils/curation-storage';
 import { usePagination } from '@/composables/use-pagination';
 import type { CreateCurationFormType } from '@/curation';
+import ActionHeaderContainer from '@/components/action-header-container.vue';
 
 const curations = ref(getCurations())
 
@@ -25,14 +26,23 @@ const handlePrevious = () => {
   }
   setCurrentPage(currentPage.value - 1);
 };
+
+const handleCreate = () => {
+  console.log('Create new curation');
+}
 </script>
 
 <template>
   <main>
     <Header />
 
-    <SearchFilterContainer />
-    <!-- list -->
+    <div class="action-header-container">
+      <ActionHeaderContainer :handleCreate="handleCreate" :title="'Hey Precious 👋 '" :description="'Welcome Back'" />
+    </div>
+    <div class="search-filter-container">
+      <SearchFilterContainer />
+    </div>
+
     <div class="curation-list">
       <CurateCard v-for="curation in paginatedData" :key="curation.id" :id="curation.id" :name="curation.name"
         :description="'Curation by Precious'" />
@@ -50,6 +60,15 @@ main {
   @media (max-width: 678px) {
     margin-inline: 6px;
   }
+}
+
+.action-header-container {
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.search-filter-container {
+  margin-top: 40px;
 }
 
 .curation-list {

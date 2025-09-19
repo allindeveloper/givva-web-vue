@@ -1,8 +1,10 @@
-
+@import './fonts.css';
 body {
   margin: 0;
   overflow-x: hidden;
+  font-family: "Degular", sans-serif;
 }
+
 /* @import './base.css';
 
 #app {

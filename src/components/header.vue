@@ -9,23 +9,28 @@ import ProfileIcon from './icons/profile-icon.vue';
 const headerItems = [
     {
         label: "Home",
-        icon: HomeIcon
+        icon: HomeIcon,
+        link: "/"
     },
     {
         label: "Explore",
-        icon: ExploreIcon
+        icon: ExploreIcon,
+        link: "/explore"
     },
     {
         label: "Collections",
-        icon: CollectionsIcon
+        icon: CollectionsIcon,
+        link: "/collections"
     },
     {
         label: "Ideas",
-        icon: IdeasIcon
+        icon: IdeasIcon,
+        link: "/ideas"
     },
     {
         label: "Profile",
-        icon: ProfileIcon
+        icon: ProfileIcon,
+        link: "/profile"
     }
 ]
 </script>
@@ -34,7 +39,7 @@ const headerItems = [
         <div class="header-items">
             <div class="header-item" v-for="(item, index) in headerItems">
                 <component v-if="item.icon" :key="index" :is="item.icon" />
-                <spam>{{ item.label }}</spam>
+                <span>{{ item.label }}</span>
             </div>
         </div>
         <div class="header-logos">
@@ -72,6 +77,11 @@ header {
     align-items: center;
     gap: 10px;
     cursor: pointer;
+
+    span {
+        color: #1C1B1F;
+        font-weight: 400;
+    }
 }
 
 .header-logos {
