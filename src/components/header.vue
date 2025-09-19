@@ -50,11 +50,20 @@ header {
     justify-content: space-between;
     align-items: center;
     padding-top: 30px;
+
+    @media (max-width: 678px) {
+        margin-inline: 6px;
+    }
 }
 
 .header-items {
     display: flex;
     gap: 30px;
+
+    @media (max-width: 678px) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .header-item {

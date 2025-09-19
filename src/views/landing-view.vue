@@ -4,6 +4,12 @@ import Button from '../components/button.vue';
 import BlueSmileyIcon from '@/components/icons/blue-smiley-icon.vue';
 import SpiralOneIcon from '@/components/icons/spiral-one-icon.vue';
 import DotOneIcon from '@/components/icons/dot-one-icon.vue';
+import { useRouter } from 'vue-router';
+const router = useRouter()
+
+const goToHome = () => {
+  router.push('/home')
+}
 </script>
 
 <template>
@@ -19,7 +25,7 @@ import DotOneIcon from '@/components/icons/dot-one-icon.vue';
           <p>
             Find the perfect gift in seconds!
           </p>
-          <Button label="Get started" />
+          <Button @click="goToHome" label="Get started" />
           <div class="spiralone">
             <SpiralOneIcon />
           </div>
