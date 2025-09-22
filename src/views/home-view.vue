@@ -54,7 +54,6 @@ const handleCancelCuration = () => {
 
 const handleDetails = () => {
   showSuccessDialog.value = false;
-  // navigate to details page
   router.push('/curation/' + curations.value[0].id);
 };
 

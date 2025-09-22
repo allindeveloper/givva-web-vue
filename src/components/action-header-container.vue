@@ -47,6 +47,10 @@ defineProps<WelcomeContainerProps>();
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+
+    @media (max-width: 678px) {
+        display: block;
+    }
 }
 
 .welcome-text {
@@ -81,6 +85,10 @@ defineProps<WelcomeContainerProps>();
 
 .welcome-button {
     margin-top: 1rem;
+
+    @media (max-width: 678px) {
+        width: fit-content;
+    }
 }
 
 .btn-create {

@@ -95,8 +95,8 @@ const handleSave = () => {
                     :items="relationshipData" label="Occassion" placeholder="Select" :labelIcon="OccassionIcon"
                     :errorMessage="errors.occassion" />
 
-                <Textarea className="input-field" placeholder="e.g Turning 25th" label="Note" :modelValue="values.note"
-                    @update:modelValue="setFieldValue('note', $event)" :labelIcon="NoteIcon"
+                <Textarea className="input-field" placeholder="Any other thing you want us to know" label="Note"
+                    :modelValue="values.note" @update:modelValue="setFieldValue('note', $event)" :labelIcon="NoteIcon"
                     :errorMessage="errors.note" />
 
                 <div>
