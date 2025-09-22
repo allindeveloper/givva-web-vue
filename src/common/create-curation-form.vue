@@ -18,6 +18,7 @@ import CurateCardSelect from "./curate-card-select.vue";
 
 const props = defineProps<{
     handleCreate: (data: CreateCurationFormType) => void;
+    handleCancel: () => void;
 }>();
 
 const step = ref(1);
@@ -37,7 +38,7 @@ const relationshipData = [
 
 const dummyGifts = ["Cake", "Bag", "Heels", "Glasses", "Bracelet", "Shoes"];
 
-const { handleSubmit, errors, values, setFieldValue } = useForm<CreateCurationFormType>({
+const { handleSubmit, errors, values, meta, setFieldValue } = useForm<CreateCurationFormType>({
     validationSchema: toTypedSchema(CreateCurationFormSchema),
     validateOnMount: false,
     initialValues: {
@@ -99,7 +100,7 @@ const handleSave = () => {
                     :errorMessage="errors.note" />
 
                 <div>
-                    <Button label="Curate" type="submit" className="submit-button" />
+                    <Button :disabled="!meta.valid" label="Curate" type="submit" className="submit-button" />
                 </div>
             </form>
         </div>
@@ -111,8 +112,8 @@ const handleSave = () => {
             </div>
 
             <div class="step-two-actions">
-                <Button label="Cancel" type="reset" className="cancel-button" />
-                <Button :disabled="true" label="Save" className="save-button" @click="handleSave" />
+                <Button label="Cancel" type="reset" @click="handleCancel" className="cancel-button" />
+                <Button :disabled="!giftTypes.length" label="Save" className="save-button" @click="handleSave" />
             </div>
         </div>
     </div>
@@ -123,6 +124,7 @@ const handleSave = () => {
     width: 497px;
     margin-inline: auto;
     position: relative;
+    margin-top: 20px;
 
     @media (max-width: 678px) {
         width: 100%;
@@ -133,6 +135,7 @@ const handleSave = () => {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 6px;
+    margin-top: 20px;
 }
 
 :deep(.input-field) {

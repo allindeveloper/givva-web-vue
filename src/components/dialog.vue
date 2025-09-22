@@ -111,10 +111,11 @@ function onBackdropClick(e: MouseEvent) {
     max-height: calc(80vh - 100px);
     padding-inline: 24px;
     box-sizing: border-box;
+    padding-bottom: 100px;
 }
 
 hr {
-    border: 1px solid #D5D7DA;
+    border: 0.5px solid #D5D7DA;
 }
 
 @keyframes fadeIn {

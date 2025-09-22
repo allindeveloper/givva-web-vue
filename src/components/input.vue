@@ -64,10 +64,8 @@ const handleInput = (event: Event) => {
     display: flex;
     align-items: center;
     gap: 10px;
-    background-color: #F9FAFB;
     border-radius: 8px;
     width: 100%;
-    height: 42px;
     padding-right: 10px;
     margin-bottom: 10px;
     margin-top: 10px;
@@ -77,7 +75,8 @@ const handleInput = (event: Event) => {
     background-color: #F9FAFB;
     border-radius: 8px;
     width: 100%;
-    height: 40px;
+    height: 42px;
+    font-size: 16px;
     border: none;
     padding-inline: 15px;
 }

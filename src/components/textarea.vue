@@ -73,7 +73,7 @@ textarea {
     width: 100%;
     border: 1px solid #D0D5DD;
     resize: none;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
     padding-inline: 20px;
     padding-block: 10px;

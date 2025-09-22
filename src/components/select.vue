@@ -82,7 +82,7 @@ const handleChange = (event: Event) => {
     border: 1px solid #d1d5db;
     border-radius: 6px;
     background-color: white;
-    font-size: 14px;
+    font-size: 16px;
     font-family: inherit;
     cursor: pointer;
     box-shadow: 0px 1px 2px 0px #1018280D;

@@ -45,7 +45,11 @@ const handleSaveCuration = (data: CreateCurationFormType) => {
   recalculate();
   showDialog.value = false;
 
-  // show success dialog
+  showSuccessDialog.value = true;
+};
+
+const handleCancelCuration = () => {
+  showDialog.value = false;
 };
 
 const handleDetails = () => {
@@ -80,7 +84,7 @@ const handleGoHome = () => {
 
     <Dialog :open="showDialog" title="Create a Gift" description="Please fill the input field below" :showClose="true"
       @close="showDialog = false">
-      <CreateCurationForm :handleCreate="handleSaveCuration" />
+      <CreateCurationForm :handleCancel="handleCancelCuration" :handleCreate="handleSaveCuration" />
     </Dialog>
 
     <Dialog :open="showSuccessDialog" :showClose="false" @close="showSuccessDialog = false">
