@@ -6,7 +6,6 @@ type InputProps = {
     modelValue?: string;
     placeholder: string;
     label?: string;
-    labelFor?: string;
     startIcon?: Component;
     customClass?: string;
     labelIcon?: Component;
@@ -25,8 +24,8 @@ const handleInput = (event: Event) => {
 </script>
 
 <template>
-    <div class="">
-        <Label v-if="props.label" :htmlFor="props.labelFor">
+    <div class="root">
+        <Label v-if="props.label" :htmlFor="props.label">
             <span class="label-content">
                 <component v-if="props.labelIcon" :is="props.labelIcon" class="label-icon" />
                 {{ props.label }}
@@ -35,7 +34,7 @@ const handleInput = (event: Event) => {
 
         <div class="input-container">
             <component v-if="props.startIcon" :is="props.startIcon" class="" />
-            <input :value="props.modelValue" @input="handleInput" :id="props.labelFor" :placeholder="props.placeholder"
+            <input :value="props.modelValue" @input="handleInput" :id="props.label" :placeholder="props.placeholder"
                 :class="['input-base', props.customClass]" />
         </div>
         <p v-if="props.errorMessage" class="label-error">
@@ -45,6 +44,10 @@ const handleInput = (event: Event) => {
 </template>
 
 <style scoped>
+.root {
+    margin-bottom: 14px;
+}
+
 .label-error {
     font-size: 12px;
     color: #dc2626;

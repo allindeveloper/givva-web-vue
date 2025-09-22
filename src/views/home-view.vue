@@ -4,15 +4,20 @@ import Header from '../components/header.vue';
 import { ref } from 'vue';
 import SearchFilterContainer from '@/components/search-filter-container.vue';
 import CurateCard from '@/components/card/curate-card.vue';
-import { getCurations } from '@/utils/curation-storage';
+import { addCuration, getCurations } from '@/utils/curation-storage';
 import { usePagination } from '@/composables/use-pagination';
 import ActionHeaderContainer from '@/components/action-header-container.vue';
 import Dialog from '@/components/dialog.vue';
 import CreateCurationForm from '@/common/create-curation-form.vue';
 import type { CreateCurationFormType } from '@/types/curation';
+import CreateCurationSuccess from '@/common/create-curation-success.vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 const curations = ref(getCurations())
-const showDialog = ref(false);
+const showDialog = ref(true);
+const showSuccessDialog = ref(false);
 
 const { paginatedData, recalculate, totalPages, currentPage, setCurrentPage } = usePagination<CreateCurationFormType>(curations.value, 10);
 
@@ -31,15 +36,27 @@ const handlePrevious = () => {
 };
 
 const handleCreate = () => {
-  console.log('Create new curation');
   showDialog.value = true;
-  recalculate();
 }
 
 const handleSaveCuration = (data: CreateCurationFormType) => {
-  // Add new curation to storage
-  curations.value.push({ ...data });
+  const newCreation = addCuration(data);
+  curations.value.unshift(newCreation);
+  recalculate();
   showDialog.value = false;
+
+  // show success dialog
+};
+
+const handleDetails = () => {
+  showSuccessDialog.value = false;
+  // navigate to details page
+  router.push('/curation/' + curations.value[0].id);
+};
+
+const handleGoHome = () => {
+  showSuccessDialog.value = false;
+  router.push('/home');
 };
 </script>
 
@@ -64,6 +81,10 @@ const handleSaveCuration = (data: CreateCurationFormType) => {
     <Dialog :open="showDialog" title="Create a Gift" description="Please fill the input field below" :showClose="true"
       @close="showDialog = false">
       <CreateCurationForm :handleCreate="handleSaveCuration" />
+    </Dialog>
+
+    <Dialog :open="showSuccessDialog" :showClose="false" @close="showSuccessDialog = false">
+      <CreateCurationSuccess :handleGoHome="handleGoHome" :handleDetails="handleDetails" />
     </Dialog>
   </main>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref } from "vue";
 import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 
@@ -37,7 +37,7 @@ const relationshipData = [
 
 const dummyGifts = ["Cake", "Bag", "Heels", "Glasses", "Bracelet", "Shoes"];
 
-const { handleSubmit, errors, values: formValues } = useForm<CreateCurationFormType>({
+const { handleSubmit, errors, values, setFieldValue } = useForm<CreateCurationFormType>({
     validationSchema: toTypedSchema(CreateCurationFormSchema),
     validateOnMount: false,
     initialValues: {
@@ -50,8 +50,7 @@ const { handleSubmit, errors, values: formValues } = useForm<CreateCurationFormT
     },
 });
 
-
-const onSubmit = handleSubmit(() => {
+const onSubmit = handleSubmit((formValues) => {
     step.value = 2;
 });
 
@@ -65,33 +64,39 @@ const handleSelectGift = (gift: string) => {
 
 const handleSave = () => {
     props.handleCreate({
-        ...formValues,
+        ...values,
         giftTypes: giftTypes.value,
     });
 };
 </script>
 
 <template>
-    <div class="h-[576px]">
+    <div class="root">
         <div v-if="step === 1">
             <form @submit="onSubmit">
                 <Input customClass="input-field" placeholder="e.g Turning 25th" label="Curation name"
-                    v-model="formValues.name" :labelIcon="AccountIcon" :errorMessage="errors.name" />
+                    :modelValue="values.name" @update:modelValue="setFieldValue('name', $event)"
+                    :labelIcon="AccountIcon" :errorMessage="errors.name" />
 
-                <Select v-model="formValues.ageRange" :items="relationshipData" label="Age range" placeholder="Select"
-                    :labelIcon="AgeRangeIcon" :errorMessage="errors.ageRange" />
+                <Select :modelValue="values.ageRange" @update:modelValue="setFieldValue('ageRange', $event)"
+                    :items="ageRanges" label="Age range" placeholder="Select" :labelIcon="AgeRangeIcon"
+                    :errorMessage="errors.ageRange" />
 
-                <Select v-model="formValues.relationship" :items="ageRanges" label="Relationship" placeholder="Select"
-                    :labelIcon="RelationshipIcon" :errorMessage="errors.relationship" />
+                <Select :modelValue="values.relationship" @update:modelValue="setFieldValue('relationship', $event)"
+                    :items="relationshipData" label="Relationship" placeholder="Select" :labelIcon="RelationshipIcon"
+                    :errorMessage="errors.relationship" />
 
                 <Input customClass="input-field" placeholder="e.g tech, books" label="Interest"
-                    v-model="formValues.interests" :labelIcon="AccountIcon" :errorMessage="errors.interests" />
+                    :modelValue="values.interests" @update:modelValue="setFieldValue('interests', $event)"
+                    :labelIcon="InterestsIcon" :errorMessage="errors.interests" />
 
-                <Select v-model="formValues.occassion" :items="relationshipData" label="Occassion" placeholder="Select"
-                    :labelIcon="OccassionIcon" :errorMessage="errors.occassion" />
+                <Select :modelValue="values.occassion" @update:modelValue="setFieldValue('occassion', $event)"
+                    :items="relationshipData" label="Occassion" placeholder="Select" :labelIcon="OccassionIcon"
+                    :errorMessage="errors.occassion" />
 
-                <Textarea className="input-field" placeholder="e.g Turning 25th" label="Note" v-model="formValues.note"
-                    :labelIcon="NoteIcon" :errorMessage="errors.note" />
+                <Textarea className="input-field" placeholder="e.g Turning 25th" label="Note" :modelValue="values.note"
+                    @update:modelValue="setFieldValue('note', $event)" :labelIcon="NoteIcon"
+                    :errorMessage="errors.note" />
 
                 <div>
                     <Button label="Curate" type="submit" className="submit-button" />
@@ -106,14 +111,24 @@ const handleSave = () => {
             </div>
 
             <div class="step-two-actions">
-                <Button label="Cancel" type="reset" class="" />
-                <Button label="Save" class="" @click="handleSave" />
+                <Button label="Cancel" type="reset" className="cancel-button" />
+                <Button :disabled="true" label="Save" className="save-button" @click="handleSave" />
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
+.root {
+    width: 497px;
+    margin-inline: auto;
+    position: relative;
+
+    @media (max-width: 678px) {
+        width: 100%;
+    }
+}
+
 .gift-select {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -139,5 +154,20 @@ const handleSave = () => {
     gap: 5px;
     margin-top: 20px;
     margin-bottom: 20px;
+    position: absolute;
+    width: 100%;
+}
+
+.cancel-button {
+    background: #FDFDFD;
+    border: 1px solid #D5D7DA;
+    box-shadow: 0px 1px 2px 0px #0A0D120D;
+    color: #292929;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.save-button {
+    background: #4DA1FF;
 }
 </style>

@@ -32,8 +32,7 @@ const handleChange = (event: Event) => {
 
 <template>
     <div class="select-wrapper">
-
-        <Label v-if="props.label" :htmlFor="props.labelFor" class="select-label">
+        <Label v-if="props.label" :htmlFor="props.labelFor">
             <span class="label-content">
                 <component v-if="props.labelIcon" :is="props.labelIcon" class="label-icon" />
                 {{ props.label }}
@@ -62,12 +61,7 @@ const handleChange = (event: Event) => {
     flex-direction: column;
     gap: 6px;
     width: 100%;
-}
-
-.select-label {
-    font-size: 14px;
-    font-weight: 500;
-    color: #374151;
+    margin-bottom: 14px;
 }
 
 .label-content {
@@ -103,5 +97,6 @@ const handleChange = (event: Event) => {
     font-size: 12px;
     color: #dc2626;
     margin-top: 0px;
+    margin-bottom: 0;
 }
 </style>

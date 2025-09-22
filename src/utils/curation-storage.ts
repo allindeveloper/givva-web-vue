@@ -1,4 +1,4 @@
-import type { CreateCurationFormType } from "@/curation";
+import type { CreateCurationFormType } from "@/types/curation";
 import { v4 as uuidv4 } from "uuid";
 
 const STORAGE_KEY = "curations";
@@ -21,11 +21,22 @@ export function addCuration(
   data: CreateCurationFormType,
 ): CreateCurationFormType {
   const curations = getCurations();
-  const newCuration: CreateCurationFormType = { ...data };
-  curations.push(newCuration);
+  const newCuration: CreateCurationFormType = { ...data, id: uuidv4(), createdMs: Date.now() };
+  curations.unshift(newCuration);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(curations));
   return newCuration;
 }
+
+// export function addCuration(
+//   data: CreateCurationFormType,
+// ): CreateCurationFormType {
+//   const newCuration = { ...data, id: uuidv4(), createdMs: Date.now() };
+
+//   const curations = getCurations();
+//   const newCurations: CreateCurationFormType[] = [newCuration, ...curations];
+//   localStorage.setItem(STORAGE_KEY, JSON.stringify(newCurations));
+//   return newCuration;
+// }
 
 export function getCurations(): CreateCurationFormType[] {
   const raw = localStorage.getItem(STORAGE_KEY);

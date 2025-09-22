@@ -6,6 +6,8 @@ interface DialogProps {
     title?: string;
     description?: string;
     showClose?: boolean;
+    handleSave?: () => void;
+    handleCancel?: () => void;
 }
 
 const props = defineProps<DialogProps>();
@@ -36,7 +38,7 @@ function onBackdropClick(e: MouseEvent) {
                 <p v-if="description" class="dialog-description">
                     {{ description }}
                 </p>
-                <hr />
+                <hr v-if="!!title" />
 
                 <button v-if="showClose" @click="handleClose" class="dialog-close-btn" aria-label="Close dialog">
                     <CloseIcon />
@@ -65,11 +67,15 @@ function onBackdropClick(e: MouseEvent) {
     background: white;
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    width: 467px;
+    width: fit-content;
     max-height: 80vh;
     position: relative;
     overflow: hidden;
     animation: fadeIn 0.2s ease-out;
+
+    @media (max-width: 678px) {
+        margin-inline: 4px;
+    }
 }
 
 .dialog-title {
@@ -100,7 +106,7 @@ function onBackdropClick(e: MouseEvent) {
 }
 
 .dialog-content {
-    overflow-y: auto;
+    /* overflow-y: auto; */
     overflow-x: hidden;
     max-height: calc(80vh - 100px);
     padding-inline: 24px;

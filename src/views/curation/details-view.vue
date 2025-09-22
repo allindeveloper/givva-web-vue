@@ -12,7 +12,7 @@ const route = useRoute()
 const router = useRouter()
 
 const id = route.params.id as string
-console.log('Curation ID:', id)
+
 const curationDetails = getCurationById(id ?? '')
 
 const handleGoBack = () => {
@@ -82,7 +82,7 @@ const handleGoBack = () => {
 
 <style scoped>
 .curation-details-container {
-    max-width: 1150px;
+    max-width: 1220px;
     margin: 0 auto;
     width: 100%;
 }
