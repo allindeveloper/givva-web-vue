@@ -6,12 +6,15 @@ import SearchFilterContainer from '@/components/search-filter-container.vue';
 import CurateCard from '@/components/card/curate-card.vue';
 import { getCurations } from '@/utils/curation-storage';
 import { usePagination } from '@/composables/use-pagination';
-import type { CreateCurationFormType } from '@/curation';
 import ActionHeaderContainer from '@/components/action-header-container.vue';
+import Dialog from '@/components/dialog.vue';
+import CreateCurationForm from '@/common/create-curation-form.vue';
+import type { CreateCurationFormType } from '@/types/curation';
 
 const curations = ref(getCurations())
+const showDialog = ref(false);
 
-const { paginatedData, totalPages, currentPage, setCurrentPage } = usePagination<CreateCurationFormType>(curations.value, 10);
+const { paginatedData, recalculate, totalPages, currentPage, setCurrentPage } = usePagination<CreateCurationFormType>(curations.value, 10);
 
 const handleNext = () => {
   if (currentPage.value === totalPages.value) {
@@ -29,7 +32,15 @@ const handlePrevious = () => {
 
 const handleCreate = () => {
   console.log('Create new curation');
+  showDialog.value = true;
+  recalculate();
 }
+
+const handleSaveCuration = (data: CreateCurationFormType) => {
+  // Add new curation to storage
+  curations.value.push({ ...data });
+  showDialog.value = false;
+};
 </script>
 
 <template>
@@ -49,6 +60,11 @@ const handleCreate = () => {
     </div>
     <Pagination :handlePreviousPage="handlePrevious" :handleNextPage="handleNext" :currentPage="currentPage"
       :totalPages="totalPages" />
+
+    <Dialog :open="showDialog" title="Create a Gift" description="Please fill the input field below" :showClose="true"
+      @close="showDialog = false">
+      <CreateCurationForm :handleCreate="handleSaveCuration" />
+    </Dialog>
   </main>
 </template>
 

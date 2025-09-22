@@ -1,20 +1,62 @@
 <script setup lang="ts">
-import type { Component } from 'vue';
+import type { Component } from "vue";
+import Label from "./label.vue";
 
 type InputProps = {
-    placeholder: string
-    startIcon?: Component
+    modelValue?: string;
+    placeholder: string;
+    label?: string;
+    labelFor?: string;
+    startIcon?: Component;
+    customClass?: string;
+    labelIcon?: Component;
+    errorMessage?: string;
+};
+
+const props = defineProps<InputProps>();
+
+const emit = defineEmits<{
+    (e: "update:modelValue", value: string): void;
+}>();
+
+const handleInput = (event: Event) => {
+    emit("update:modelValue", (event.target as HTMLInputElement).value);
 }
-const inputProps = defineProps<InputProps>()
 </script>
 
 <template>
-    <div class="input-container">
-        <component :is="inputProps.startIcon" />
-        <input :placeholder="inputProps.placeholder" />
+    <div class="">
+        <Label v-if="props.label" :htmlFor="props.labelFor">
+            <span class="label-content">
+                <component v-if="props.labelIcon" :is="props.labelIcon" class="label-icon" />
+                {{ props.label }}
+            </span>
+        </Label>
+
+        <div class="input-container">
+            <component v-if="props.startIcon" :is="props.startIcon" class="" />
+            <input :value="props.modelValue" @input="handleInput" :id="props.labelFor" :placeholder="props.placeholder"
+                :class="['input-base', props.customClass]" />
+        </div>
+        <p v-if="props.errorMessage" class="label-error">
+            {{ props.errorMessage }}
+        </p>
     </div>
 </template>
+
 <style scoped>
+.label-error {
+    font-size: 12px;
+    color: #dc2626;
+    margin-top: 0px;
+}
+
+.label-content {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
 .input-container {
     display: flex;
     align-items: center;
@@ -23,20 +65,21 @@ const inputProps = defineProps<InputProps>()
     border-radius: 8px;
     width: 100%;
     height: 42px;
-    padding-left: 10px;
     padding-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
-input {
+.input-base {
     background-color: #F9FAFB;
     border-radius: 8px;
     width: 100%;
     height: 40px;
     border: none;
-    padding-right: 20px;
+    padding-inline: 15px;
 }
 
-input:focus {
+.input-base:focus {
     outline: none;
 }
 </style>

@@ -6,6 +6,7 @@ import AgeRangeIcon from '@/components/icons/age-range-icon.vue'
 import RelationshipIcon from '@/components/icons/relationship-icon.vue'
 import OccassionIcon from '@/components/icons/occassion-icon.vue'
 import InterestsIcon from '@/components/icons/interests-icon.vue'
+import Header from '@/components/header.vue';
 
 const route = useRoute()
 const router = useRouter()
@@ -21,6 +22,7 @@ const handleGoBack = () => {
 
 <template>
     <div class="curation-details-container">
+        <Header />
         <div class="header">
             <p class="back-link" @click="handleGoBack">Back</p>
 
@@ -33,7 +35,7 @@ const handleGoBack = () => {
                     <span class="label-text">Age range</span>
                 </div>
                 <div>
-                    <span>{{ curationDetails?.ageRange }}</span>
+                    <span class="label-value">{{ curationDetails?.ageRange }}</span>
                 </div>
             </div>
 
@@ -43,7 +45,7 @@ const handleGoBack = () => {
                     <span class="label-text">Relationship</span>
                 </div>
                 <div>
-                    <span>{{ curationDetails?.relationship }}</span>
+                    <span class="label-value">{{ curationDetails?.relationship }}</span>
                 </div>
             </div>
 
@@ -53,7 +55,7 @@ const handleGoBack = () => {
                     <span class="label-text">Occassion</span>
                 </div>
                 <div>
-                    <span>{{ curationDetails?.occassion }}</span>
+                    <span class="label-value">{{ curationDetails?.occassion }}</span>
                 </div>
             </div>
 
@@ -63,7 +65,7 @@ const handleGoBack = () => {
                     <span class="label-text">Interests</span>
                 </div>
                 <div>
-                    <span>{{ curationDetails?.interests }}</span>
+                    <span class="label-value">{{ curationDetails?.interests }}</span>
                 </div>
             </div>
         </div>
@@ -83,6 +85,12 @@ const handleGoBack = () => {
     max-width: 1150px;
     margin: 0 auto;
     width: 100%;
+}
+
+.label-value {
+    font-weight: 400;
+    font-size: 16px;
+    color: #252B37;
 }
 
 .header {

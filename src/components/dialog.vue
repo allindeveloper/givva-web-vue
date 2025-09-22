@@ -9,6 +9,7 @@ interface DialogProps {
 }
 
 const props = defineProps<DialogProps>();
+
 const emit = defineEmits<{
     (e: "close"): void;
 }>();
@@ -16,29 +17,109 @@ const emit = defineEmits<{
 function handleClose() {
     emit("close");
 }
+
+function onBackdropClick(e: MouseEvent) {
+    if (e.target === e.currentTarget) {
+        handleClose();
+    }
+}
 </script>
 
 <template>
     <Teleport to="body">
-        <div v-if="open" class="fixed inset-0 bg-dark-custom-4 flex items-center justify-center z-50">
-            <div class="bg-white rounded-2xl shadow-xl w-[597px] p-6 relative">
-                <p v-if="title" class="text-xl font-semibold mb-4">
+        <div v-if="open" class="dialog-backdrop" @click="onBackdropClick">
+            <div class="dialog-box">
+                <p v-if="title" class="dialog-title">
                     {{ title }}
                 </p>
 
-                <p v-if="description" class="text-primary font-degular font-normal text-base">
+                <p v-if="description" class="dialog-description">
                     {{ description }}
                 </p>
+                <hr />
 
-                <button v-if="showClose" @click="handleClose" class="absolute top-10 right-10 cursor-pointer"
-                    aria-label="Close dialog">
+                <button v-if="showClose" @click="handleClose" class="dialog-close-btn" aria-label="Close dialog">
                     <CloseIcon />
                 </button>
 
-                <div class="overflow-y-auto">
+                <div class="dialog-content">
                     <slot />
                 </div>
             </div>
         </div>
     </Teleport>
 </template>
+
+<style scoped>
+.dialog-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.dialog-box {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 467px;
+    max-height: 80vh;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.dialog-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0px;
+    margin-top: 20px;
+    padding-inline: 24px;
+}
+
+.dialog-description {
+    font-size: 16px;
+    color: #1D1D1D;
+    margin-bottom: 16px;
+    margin-top: 10px;
+    font-weight: 400;
+    padding-inline: 24px;
+}
+
+.dialog-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+}
+
+.dialog-content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(80vh - 100px);
+    padding-inline: 24px;
+    box-sizing: border-box;
+}
+
+hr {
+    border: 1px solid #D5D7DA;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+</style>

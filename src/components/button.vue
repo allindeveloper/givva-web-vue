@@ -3,18 +3,19 @@ type ButtonProps = {
     label: string;
     type?: "submit" | "reset" | "button";
     disabled?: boolean;
-    class?: string;
+    className?: string;
 };
 
 const buttonProps = defineProps<ButtonProps>();
 </script>
 
 <template>
-    <button :type="buttonProps.type || 'button'" :class="buttonProps.class" :disabled="buttonProps.disabled">
+    <button :type="buttonProps.type || 'button'" :class="buttonProps.className" :disabled="buttonProps.disabled">
         <slot class="start-icon" name="startIcon" />
         {{ buttonProps.label }}
     </button>
 </template>
+
 <style scoped>
 button {
     background-color: #0A1207;
@@ -27,6 +28,10 @@ button {
     cursor: pointer;
     border: none;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
     transition: opacity 0.2s ease-in-out;
 }
 
