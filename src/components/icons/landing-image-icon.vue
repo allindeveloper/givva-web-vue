@@ -1,5 +1,12 @@
+<script setup lang="ts">
+const props = defineProps<{
+    className?: string;
+}>();
+</script>
+
 <template>
-    <svg width="606" height="700" viewBox="0 0 606 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg :class="props.className" width="606" height="700" viewBox="0 0 606 700" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_1_3090)">
             <rect width="606" height="700" rx="56" fill="#71B4FF" />
             <g clip-path="url(#clip1_1_3090)">

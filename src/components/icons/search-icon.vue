@@ -1,4 +1,3 @@
-<!-- SearchIcon.vue -->
 <script setup lang="ts">
 const props = defineProps<{
     className?: string;

@@ -95,8 +95,8 @@ const handleInputChange = (e: HTMLInputElement) => {
       <CurateCard v-for="curation in paginatedData" :key="curation.id" :id="curation.id" :name="curation.name"
         :description="'Curation by Precious'" />
     </div>
-    <Pagination :handlePreviousPage="handlePrevious" :handleNextPage="handleNext" :currentPage="currentPage"
-      :totalPages="totalPages" />
+    <Pagination v-if="Number(totalPages) > 1" :handlePreviousPage="handlePrevious" :handleNextPage="handleNext"
+      :currentPage="currentPage" :totalPages="totalPages" />
 
     <Dialog :open="showDialog" title="Create a Gift" description="Please fill the input field below" :showClose="true"
       @close="showDialog = false">
