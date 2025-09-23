@@ -19,7 +19,7 @@ const curations = ref(getCurations())
 const showDialog = ref(false);
 const showSuccessDialog = ref(false);
 
-const { paginatedData, recalculate, totalPages, currentPage, setCurrentPage } = usePagination<CreateCurationFormType>(curations.value, 10);
+const { paginatedData, totalPages, currentPage, setCurrentPage } = usePagination<CreateCurationFormType>(curations, 10);
 
 const handleNext = () => {
   if (currentPage.value === totalPages.value) {
@@ -42,7 +42,6 @@ const handleCreate = () => {
 const handleSaveCuration = (data: CreateCurationFormType) => {
   const newCreation = addCuration(data);
   curations.value.unshift(newCreation);
-  recalculate();
   showDialog.value = false;
 
   showSuccessDialog.value = true;
@@ -61,6 +60,24 @@ const handleGoHome = () => {
   showSuccessDialog.value = false;
   router.push('/home');
 };
+
+const handleInputChange = (e: HTMLInputElement) => {
+  const searchValue = e.value;
+  const allCurations = getCurations();
+
+  const filteredData = allCurations.filter(
+    (c) =>
+      c.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+      c.interests.toLowerCase().includes(searchValue.toLowerCase()) ||
+      c.note.toLowerCase().includes(searchValue.toLowerCase()) ||
+      c.occassion.toLowerCase().includes(searchValue.toLowerCase()) ||
+      c.relationship.toLowerCase().includes(searchValue.toLowerCase()) ||
+      c.ageRange.toLowerCase().includes(searchValue.toLowerCase()),
+  );
+  curations.value = filteredData;
+
+  setCurrentPage(1);
+};
 </script>
 
 <template>
@@ -71,7 +88,7 @@ const handleGoHome = () => {
       <ActionHeaderContainer :handleCreate="handleCreate" :title="'Hey Precious 👋 '" :description="'Welcome Back'" />
     </div>
     <div class="search-filter-container">
-      <SearchFilterContainer />
+      <SearchFilterContainer :handleChange="handleInputChange" />
     </div>
 
     <div class="curation-list">

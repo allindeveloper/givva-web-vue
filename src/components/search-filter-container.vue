@@ -8,6 +8,11 @@ const props = defineProps<{
 }>();
 
 const searchValue = ref('');
+
+const handleInput = (e: HTMLInputElement) => {
+    searchValue.value = e.value;
+    props.handleChange?.(e);
+};
 </script>
 
 <template>
@@ -16,8 +21,9 @@ const searchValue = ref('');
             <p>Top picks</p>
         </div>
         <div class="search-wrapper">
-            <Input @input="props.handleChange" customClass="search-field" :iconProps="{ className: 'search-icon' }"
-                :startIcon="SearchIcon" :placeholder="'What type of gift ideas are you interested in?'" />
+            <Input :modelValue="searchValue" @input="handleInput" customClass="search-field"
+                :iconProps="{ className: 'search-icon' }" :startIcon="SearchIcon"
+                :placeholder="'What type of gift ideas are you interested in?'" />
         </div>
     </div>
     <hr />
