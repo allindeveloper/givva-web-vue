@@ -10,16 +10,21 @@ type InputProps = {
     customClass?: string;
     labelIcon?: Component;
     errorMessage?: string;
+    iconProps?: {
+        className: string;
+    };
 };
 
 const props = defineProps<InputProps>();
 
 const emit = defineEmits<{
     (e: "update:modelValue", value: string): void;
+    (e: "input", event: HTMLInputElement): void;
 }>();
 
 const handleInput = (event: Event) => {
     emit("update:modelValue", (event.target as HTMLInputElement).value);
+    emit("input", event.target as HTMLInputElement);
 }
 </script>
 
@@ -33,7 +38,7 @@ const handleInput = (event: Event) => {
         </Label>
 
         <div class="input-container">
-            <component v-if="props.startIcon" :is="props.startIcon" class="" />
+            <component :class="props.iconProps?.className" v-if="props.startIcon" :is="props.startIcon" class="" />
             <input :value="props.modelValue" @input="handleInput" :id="props.label" :placeholder="props.placeholder"
                 :class="['input-base', props.customClass]" />
         </div>
@@ -66,19 +71,21 @@ const handleInput = (event: Event) => {
     gap: 10px;
     border-radius: 8px;
     width: 100%;
-    padding-right: 10px;
     margin-bottom: 10px;
     margin-top: 10px;
+    background-color: #F9FAFB;
+    height: 42px;
 }
 
 .input-base {
     background-color: #F9FAFB;
     border-radius: 8px;
+    padding-right: 10px;
     width: 100%;
     height: 42px;
     font-size: 16px;
     border: none;
-    padding-inline: 15px;
+    padding-left: 14px;
 }
 
 .input-base:focus {

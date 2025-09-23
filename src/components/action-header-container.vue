@@ -26,7 +26,7 @@ defineProps<WelcomeContainerProps>();
             </p>
 
             <div v-if="showNavigation" class="welcome-nav">
-                <RouterLink to="/">Home</RouterLink>
+                <RouterLink class="home-link" to="/home">Home</RouterLink>
                 <span>-</span>
                 <div>Details</div>
             </div>
@@ -43,6 +43,11 @@ defineProps<WelcomeContainerProps>();
 </template>
 
 <style scoped>
+.home-link {
+    color: #667085;
+    text-decoration: none;
+}
+
 .welcome-container {
     display: flex;
     justify-content: space-between;

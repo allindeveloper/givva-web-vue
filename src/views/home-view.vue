@@ -16,7 +16,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter()
 
 const curations = ref(getCurations())
-const showDialog = ref(true);
+const showDialog = ref(false);
 const showSuccessDialog = ref(false);
 
 const { paginatedData, recalculate, totalPages, currentPage, setCurrentPage } = usePagination<CreateCurationFormType>(curations.value, 10);

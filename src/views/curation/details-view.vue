@@ -7,6 +7,7 @@ import RelationshipIcon from '@/components/icons/relationship-icon.vue'
 import OccassionIcon from '@/components/icons/occassion-icon.vue'
 import InterestsIcon from '@/components/icons/interests-icon.vue'
 import Header from '@/components/header.vue';
+import ActionHeaderContainer from '@/components/action-header-container.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -23,9 +24,12 @@ const handleGoBack = () => {
 <template>
     <div class="curation-details-container">
         <Header />
-        <div class="header">
+        <!-- <div class="header">
             <p class="back-link" @click="handleGoBack">Back</p>
 
+        </div> -->
+        <div class="action-header-container">
+            <ActionHeaderContainer :showNavigation="true" :title="curationDetails?.name" />
         </div>
 
         <div class="details-card">
@@ -81,6 +85,11 @@ const handleGoBack = () => {
 </template>
 
 <style scoped>
+.action-header-container {
+    margin-top: 60px;
+    margin-bottom: 20px;
+}
+
 .curation-details-container {
     max-width: 1220px;
     margin: 0 auto;
@@ -106,9 +115,9 @@ const handleGoBack = () => {
 
 .details-card {
     background-color: #F2F2F2;
-    padding: 16px 24px;
+    padding: 24px 36px;
     border-radius: 20px;
-    margin-top: 24px;
+    margin-top: 26px;
 }
 
 .details-row {
@@ -142,7 +151,7 @@ const handleGoBack = () => {
 .curation-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 24px;
+    gap: 30px;
 }
 
 .curate-card {

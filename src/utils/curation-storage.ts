@@ -27,17 +27,6 @@ export function addCuration(
   return newCuration;
 }
 
-// export function addCuration(
-//   data: CreateCurationFormType,
-// ): CreateCurationFormType {
-//   const newCuration = { ...data, id: uuidv4(), createdMs: Date.now() };
-
-//   const curations = getCurations();
-//   const newCurations: CreateCurationFormType[] = [newCuration, ...curations];
-//   localStorage.setItem(STORAGE_KEY, JSON.stringify(newCurations));
-//   return newCuration;
-// }
-
 export function getCurations(): CreateCurationFormType[] {
   const raw = localStorage.getItem(STORAGE_KEY);
   return raw ? (JSON.parse(raw) as CreateCurationFormType[]).sort((a,b) => (b?.createdMs ?? 0) - (a.createdMs ?? 0)) : [];

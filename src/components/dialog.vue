@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onUnmounted, watch } from "vue";
 import CloseIcon from "./icons/close-icon.vue";
 
 interface DialogProps {
@@ -25,6 +26,17 @@ function onBackdropClick(e: MouseEvent) {
         handleClose();
     }
 }
+
+watch(
+    () => props.open,
+    (isOpen) => {
+        document.body.style.overflow = isOpen ? "hidden" : "";
+    }
+);
+
+onUnmounted(() => {
+    document.body.style.overflow = "";
+});
 </script>
 
 <template>
@@ -61,6 +73,11 @@ function onBackdropClick(e: MouseEvent) {
     align-items: center;
     justify-content: center;
     z-index: 9999;
+
+    @media (max-width: 678px) {
+        align-items: start;
+        margin-top: 4px;
+    }
 }
 
 .dialog-box {
@@ -75,6 +92,7 @@ function onBackdropClick(e: MouseEvent) {
 
     @media (max-width: 678px) {
         margin-inline: 4px;
+        width: 100%;
     }
 }
 
@@ -106,12 +124,11 @@ function onBackdropClick(e: MouseEvent) {
 }
 
 .dialog-content {
-    /* overflow-y: auto; */
     overflow-x: hidden;
     max-height: calc(80vh - 100px);
     padding-inline: 24px;
     box-sizing: border-box;
-    padding-bottom: 100px;
+    padding-bottom: 60px;
 }
 
 hr {

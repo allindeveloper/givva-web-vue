@@ -147,7 +147,6 @@ const handleSave = () => {
 .submit-button {
     margin-top: 20px;
     background-color: #4DA1FF;
-    margin-bottom: 30px;
 }
 
 .step-two-actions {

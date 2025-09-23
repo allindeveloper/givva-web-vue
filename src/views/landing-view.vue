@@ -25,7 +25,7 @@ const goToHome = () => {
           <p>
             Find the perfect gift in seconds!
           </p>
-          <Button @click="goToHome" label="Get started" />
+          <Button @click="goToHome" className="btn-get-started" label="Get started" />
           <div class="spiralone">
             <SpiralOneIcon />
           </div>
@@ -39,6 +39,10 @@ const goToHome = () => {
 </template>
 
 <style scoped>
+.btn-get-started {
+  width: 236px;
+}
+
 main {
   background-color: white;
 
