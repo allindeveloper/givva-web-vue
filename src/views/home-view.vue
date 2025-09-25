@@ -116,7 +116,8 @@ console.log("curr", currentPage.value)
 
     <div class="curation-list">
       <CurateCard v-for="curation in paginatedData" :key="curation.id" :id="curation.id" :name="curation.name"
-        :description="'Curation by Precious'" :image="curation.giftTypes?.[0]?.image" />
+        :description="'Curation by Precious'" :count="curation.giftTypes?.length"
+        :image="curation.giftTypes?.[0]?.image" />
     </div>
     <Pagination v-if="Number(totalPages) > 1" :handlePreviousPage="handlePrevious" :handleNextPage="handleNext"
       :currentPage="currentPage" :totalPages="totalPages" />

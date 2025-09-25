@@ -11,6 +11,7 @@ const props = defineProps<{
     giftType?: string
     image?: string
     cardImageClassName?: string
+    count?: number
 }>()
 </script>
 
@@ -19,7 +20,9 @@ const props = defineProps<{
         v-bind="!props.detailsPage ? { to: `/curation/${props.id}` } : {}"
         :class="!props.detailsPage ? 'card-wrapper' : 'card-wrapper-default'">
         <img :src="props.image || curateimage" alt="Curate Image" :class="['card-image', props.cardImageClassName]" />
-
+        <div v-if="!!props.count" class="count">
+            {{ props.count }}
+        </div>
         <p v-if="props.name" class="card-name">
             {{ props.name }}
         </p>
@@ -35,9 +38,29 @@ const props = defineProps<{
 </template>
 
 <style scoped>
+.count {
+    background-color: #FFFFFF33;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #FFFFFF;
+    font-size: 22px;
+    top: 14px;
+    right: 14px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+}
+
 .card-wrapper {
     transition: opacity 0.2s ease-in-out;
     text-decoration: none;
+    position: relative;
 }
 
 .card-wrapper:hover {
@@ -47,6 +70,7 @@ const props = defineProps<{
 .card-wrapper-default {
     transition: opacity 0.2s ease-in-out;
     text-decoration: none;
+    position: relative;
 }
 
 .card-image {
