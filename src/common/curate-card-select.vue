@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import curateimage from "@/assets/image/curate-image.png";
+// import curateimage from "@/assets/image/curate-image.png";
 import CircleEmptyIcon from "@/components/icons/circle-empty-icon.vue";
 import CircleFilledIcon from "@/components/icons/circle-filled-icon.vue";
 
 type CurateCardSelectProps = {
     selected: boolean;
     name: string;
+    image: string;
 };
 
 const props = defineProps<CurateCardSelectProps>();
@@ -29,7 +30,7 @@ function handleSelect() {
                 <p>{{ props.name }}</p>
             </div>
         </div>
-        <img class="curate-image" :src="curateimage" alt="Curate Image" />
+        <img class="curate-image" :src="props.image" alt="Curate Image" />
     </div>
 </template>
 
@@ -38,14 +39,20 @@ function handleSelect() {
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
+    transition: opacity 0.2s ease-in-out;
+    margin-bottom: 10px;
+}
+
+.curate-card:hover {
+    opacity: 0.7;
 }
 
 .curate-header {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 20px;
+    gap: 10px;
 }
 
 .curate-icon {
@@ -57,6 +64,8 @@ function handleSelect() {
 .curate-text {
     display: flex;
     align-items: center;
+    margin-bottom: 0;
+    margin-top: 0;
 }
 
 .curate-image {

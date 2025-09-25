@@ -2,8 +2,6 @@
 import FilterIcon from "./icons/filter-icon.vue";
 
 type ButtonProps = {
-    label: string;
-    disabled?: boolean;
     className?: string;
 };
 

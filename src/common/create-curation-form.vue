@@ -4,7 +4,7 @@ import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 
 import Button from "@/components/button.vue";
-import { CreateCurationFormSchema, type CreateCurationFormType } from "@/types/curation";
+import { CreateCurationFormSchema, type CreateCurationFormType, type Gift } from "@/types/curation";
 import Textarea from "@/components/textarea.vue";
 import NoteIcon from "@/components/icons/note-icon.vue";
 import Select from "@/components/select.vue";
@@ -15,7 +15,7 @@ import AgeRangeIcon from "@/components/icons/age-range-icon.vue";
 import Input from "@/components/input.vue";
 import AccountIcon from "@/components/icons/account-icon.vue";
 import CurateCardSelect from "./curate-card-select.vue";
-import { ageRanges, ocassionData, relationshipData } from "@/data/dummy-curations";
+import { ageRanges, dummyGifts, ocassionData, relationshipData } from "@/data/dummy-curations";
 
 const props = defineProps<{
     handleCreate: (data: CreateCurationFormType) => void;
@@ -23,10 +23,8 @@ const props = defineProps<{
 }>();
 
 const step = ref(1);
-const giftTypes = ref<string[]>([]);
+const giftTypes = ref<Gift[]>([]);
 
-
-const dummyGifts = ["Cake", "Bag", "Heels", "Glasses", "Bracelet", "Shoes"];
 
 const { handleSubmit, errors, values, meta, setFieldValue } = useForm<CreateCurationFormType>({
     validationSchema: toTypedSchema(CreateCurationFormSchema),
@@ -45,9 +43,10 @@ const onSubmit = handleSubmit((formValues) => {
     step.value = 2;
 });
 
-const handleSelectGift = (gift: string) => {
-    if (giftTypes.value.includes(gift)) {
-        giftTypes.value = giftTypes.value.filter((g) => g !== gift);
+const handleSelectGift = (gift: Gift) => {
+    const index = giftTypes.value.findIndex(g => g.name === gift.name);
+    if (index >= 0) {
+        giftTypes.value.splice(index, 1);
     } else {
         giftTypes.value.push(gift);
     }
@@ -98,7 +97,7 @@ const handleSave = () => {
         <div v-else-if="step === 2" class="step-two-container">
             <div class="gift-select">
                 <CurateCardSelect v-for="(gift, index) in dummyGifts" :key="index" :selected="giftTypes.includes(gift)"
-                    :name="gift" @click="handleSelectGift(gift)" />
+                    :name="gift.name" :image="gift.image" @click="handleSelectGift(gift)" />
             </div>
 
             <div class="step-two-actions">
@@ -137,6 +136,10 @@ const handleSave = () => {
 .submit-button {
     margin-top: 20px;
     background-color: #4DA1FF;
+}
+
+.step-two-container {
+    margin-bottom: 40px;
 }
 
 .step-two-actions {

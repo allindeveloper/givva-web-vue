@@ -78,7 +78,7 @@ const handleGoBack = () => {
 
         <div class="curation-grid">
             <div v-for="(gift, index) in curationDetails?.giftTypes" :key="index">
-                <CurateCard :detailsPage="true" :name="gift" />
+                <CurateCard :detailsPage="true" :name="gift.name" :image="gift.image" />
             </div>
         </div>
     </div>

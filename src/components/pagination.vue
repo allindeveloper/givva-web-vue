@@ -15,13 +15,14 @@ const paginationProps = defineProps<PaginationProps>()
 <template>
     <hr />
     <div class="container">
-        <div class="arrow-left" @click="paginationProps.handlePreviousPage">
+        <div :class="currentPage === 1 ? 'arrow-disabled' : 'arrow-left'" @click="paginationProps.handlePreviousPage">
             <ArrowLeftIcon />
         </div>
         <div>
             Page {{ paginationProps.currentPage }} of {{ paginationProps.totalPages }}
         </div>
-        <div @click="paginationProps.handleNextPage" class="arrow-right">
+        <div @click="paginationProps.handleNextPage"
+            :class="currentPage === totalPages ? 'arrow-desabled' : 'arrow-right'">
             <ArrowRightIcon />
         </div>
     </div>
@@ -44,5 +45,10 @@ hr {
 .arrow-left,
 .arrow-right {
     cursor: pointer;
+}
+
+.arrow-desabled {
+    cursor: default;
+    opacity: 0.5;
 }
 </style>
