@@ -30,7 +30,7 @@ const props = defineProps<{
 <style scoped>
 .root {
     margin-bottom: 10px;
-    width: 450px;
+    width: 400px;
     margin-inline: auto;
 
     @media (max-width: 678px) {
@@ -52,8 +52,9 @@ const props = defineProps<{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 70px;
+    margin-bottom: 24px;
+    animation: pulse 2s infinite alternate;
 }
 
 .content-container {
@@ -75,6 +76,17 @@ const props = defineProps<{
         color: #1D1D1D;
         font-weight: 400;
         font-size: 14px;
+    }
+}
+
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.3);
     }
 }
 </style>
