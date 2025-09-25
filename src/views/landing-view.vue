@@ -23,43 +23,42 @@ const goToHome = () => {
     <div class="container">
       <div class="root">
         <div class="leftsection">
-          <div class="dot-one">
+          <div class="dot-one floating">
             <DotOneIcon />
           </div>
-          <div class="blue-smiley">
+          <div class="blue-smiley fade-in-up">
             <BlueSmileyIcon />
             <div class="spiral-two">
               <SpiralTwoIcon />
             </div>
-            <div class="dot-three">
+            <div class="dot-three floating-delayed">
               <DotThreeIcon />
             </div>
-
           </div>
 
-          <div class="dot-six">
+          <div class="dot-six floating">
             <DotSixIcon />
           </div>
-          <h1>Givva.</h1>
-          <p>
+          <h1 class="fade-in">Givva.</h1>
+          <p class="fade-in">
             Find the perfect gift in seconds!
           </p>
-          <div class="dot-five">
+          <div class="dot-five floating-delayed">
             <DotFiveIcon />
           </div>
-          <Button @click="goToHome" className="btn-get-started" label="Get started" />
-          <div class="spiralone">
+          <Button @click="goToHome" className="btn-get-started pulse" label="Get started" />
+          <div class="spiral-one">
             <SpiralOneIcon />
           </div>
-          <div class="dot-two">
+          <div class="dot-two floating">
             <DotTwoIcon />
           </div>
-          <div class="dot-four">
+          <div class="dot-four floating-delayed">
             <DotFourIcon />
           </div>
         </div>
         <div>
-          <LandingImageIcon className="right-image" />
+          <LandingImageIcon className="right-image fade-in-up" />
         </div>
       </div>
     </div>
@@ -80,7 +79,6 @@ const goToHome = () => {
 
 main {
   background-color: white;
-
 }
 
 .container {
@@ -124,7 +122,7 @@ p {
   position: relative;
 }
 
-.spiralone {
+.spiral-one {
   position: absolute;
   bottom: 54px;
   left: 270px;
@@ -174,5 +172,99 @@ p {
 
 .blue-smiley {
   position: relative;
+}
+
+.spiral-one,
+.spiral-two {
+  animation: slideLeftRight 6s ease-in-out infinite;
+}
+
+@keyframes slideLeftRight {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(-10px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseAnim {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.floating {
+  animation: float 3s ease-in-out infinite;
+}
+
+.floating-delayed {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.spin-slow {
+  animation: spin 10s linear infinite;
+}
+
+.fade-in {
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.fade-in-up {
+  animation: fadeUp 1s ease forwards;
+}
+
+.pulse {
+  animation: pulseAnim 2s ease-in-out infinite;
 }
 </style>
