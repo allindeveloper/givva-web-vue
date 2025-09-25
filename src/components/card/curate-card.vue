@@ -10,6 +10,7 @@ const props = defineProps<{
     detailsPage?: boolean
     giftType?: string
     image?: string
+    cardImageClassName?: string
 }>()
 </script>
 
@@ -17,7 +18,7 @@ const props = defineProps<{
     <component :is="props.detailsPage ? 'div' : RouterLink"
         v-bind="!props.detailsPage ? { to: `/curation/${props.id}` } : {}"
         :class="!props.detailsPage ? 'card-wrapper' : 'card-wrapper-default'">
-        <img :src="props.image || curateimage" alt="Curate Image" class="card-image" />
+        <img :src="props.image || curateimage" alt="Curate Image" :class="['card-image', props.cardImageClassName]" />
 
         <p v-if="props.name" class="card-name">
             {{ props.name }}
@@ -51,10 +52,11 @@ const props = defineProps<{
 .card-image {
     display: block;
     width: 208px;
-    height: 140px;
+    height: 138px;
 
     @media (max-width: 678px) {
         width: 100%;
+        height: 124px;
     }
 }
 

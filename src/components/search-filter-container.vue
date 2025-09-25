@@ -37,8 +37,9 @@ const FilterContentWithEmit = () =>
             <Input :modelValue="searchValue" @input="handleInput" customClass="search-field"
                 :iconProps="{ className: 'search-icon' }" :startIcon="SearchIcon"
                 :placeholder="'What type of gift ideas are you interested in?'" />
-            <!-- pop-over -->
-            <PopOver :action="FilterButton" :content="FilterContentWithEmit" />
+            <div class="filter-pop-over">
+                <PopOver :action="FilterButton" :content="FilterContentWithEmit" />
+            </div>
         </div>
     </div>
     <hr />
@@ -55,6 +56,17 @@ const FilterContentWithEmit = () =>
     justify-content: flex-end;
     align-items: baseline;
     gap: 20px;
+
+    @media (max-width: 678px) {
+        display: block;
+    }
+}
+
+.filter-pop-over {
+    @media (max-width: 678px) {
+        display: flex;
+        justify-content: end;
+    }
 }
 
 :deep(.search-field) {

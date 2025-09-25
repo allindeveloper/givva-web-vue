@@ -5,7 +5,7 @@ import { initCurations } from './utils/curation-storage';
 import { dummyCurations } from './data/dummy-curations';
 
 onMounted(() => {
-  initCurations(dummyCurations)
+  // initCurations(dummyCurations)
 });
 </script>
 

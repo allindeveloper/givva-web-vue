@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 
@@ -39,7 +39,13 @@ const { handleSubmit, errors, values, meta, setFieldValue } = useForm<CreateCura
     },
 });
 
-const onSubmit = handleSubmit((formValues) => {
+onMounted(() => {
+    Object.keys(values).forEach(key => {
+        setFieldValue(key as keyof CreateCurationFormType, values[key as keyof CreateCurationFormType], false);
+    });
+});
+
+const onSubmit = handleSubmit(() => {
     step.value = 2;
 });
 

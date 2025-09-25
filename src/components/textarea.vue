@@ -35,7 +35,7 @@ const handleInput = (event: Event) => {
 
         <div class="textarea-container">
             <textarea :value="props.modelValue" @input="handleInput" :class="props.className" :id="props.labelFor"
-                rows="5" :placeholder="props.placeholder" />
+                rows="3" :placeholder="props.placeholder" />
             <p v-if="props.errorMessage" class="label-error">
                 {{ props.errorMessage }}
             </p>

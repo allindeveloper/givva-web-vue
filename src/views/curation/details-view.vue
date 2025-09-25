@@ -24,12 +24,12 @@ const handleGoBack = () => {
 <template>
     <div class="curation-details-container">
         <Header />
-        <!-- <div class="header">
+        <div class="header">
             <p class="back-link" @click="handleGoBack">Back</p>
-
-        </div> -->
+        </div>
         <div class="action-header-container">
-            <ActionHeaderContainer :showNavigation="true" :title="curationDetails?.name" />
+            <ActionHeaderContainer titleClassName="header-title" :showNavigation="true"
+                :title="curationDetails?.name" />
         </div>
 
         <div class="details-card">
@@ -78,7 +78,8 @@ const handleGoBack = () => {
 
         <div class="curation-grid">
             <div v-for="(gift, index) in curationDetails?.giftTypes" :key="index">
-                <CurateCard :detailsPage="true" :name="gift.name" :image="gift.image" />
+                <CurateCard cardImageClassName="curate-card-image" :detailsPage="true" :name="gift.name"
+                    :image="gift.image" />
             </div>
         </div>
     </div>
@@ -86,14 +87,28 @@ const handleGoBack = () => {
 
 <style scoped>
 .action-header-container {
-    margin-top: 60px;
     margin-bottom: 20px;
+}
+
+:deep(.header-title) {
+    color: #1D1D1DE5;
+    font-weight: 600;
+    font-size: 32px;
 }
 
 .curation-details-container {
     max-width: 1220px;
     margin: 0 auto;
-    width: 100%;
+
+    @media (max-width: 678px) {
+        margin-inline: 12px;
+    }
+}
+
+:deep(.curate-card-image) {
+    @media (max-width: 678px) {
+        height: 100%;
+    }
 }
 
 .label-value {
@@ -111,6 +126,11 @@ const handleGoBack = () => {
     margin-bottom: 16px;
     display: inline-block;
     font-weight: 500;
+    transition: color 0.2s ease-in-out;
+}
+
+.back-link:hover {
+    color: #4DA1FF;
 }
 
 .details-card {

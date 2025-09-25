@@ -141,7 +141,7 @@ main {
   margin: 0 auto;
 
   @media (max-width: 678px) {
-    margin-inline: 6px;
+    margin-inline: 12px;
   }
 }
 

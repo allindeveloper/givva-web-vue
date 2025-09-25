@@ -8,16 +8,17 @@ interface WelcomeContainerProps {
     title?: string;
     description?: string;
     showNavigation?: boolean;
+    titleClassName?: string;
 }
 
-defineProps<WelcomeContainerProps>();
+const props = defineProps<WelcomeContainerProps>();
 </script>
 
 <template>
     <div class="welcome-container">
         <div class="welcome-text">
 
-            <p v-if="title" class="welcome-title">
+            <p v-if="title" :class="['welcome-title', props.titleClassName]">
                 {{ title }}
             </p>
 
