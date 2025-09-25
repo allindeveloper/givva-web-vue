@@ -81,6 +81,14 @@ header {
     span {
         color: #1C1B1F;
         font-weight: 400;
+        transition: color 0.2s ease-in-out;
+    }
+}
+
+.header-item {
+
+    span:hover {
+        color: #4DA1FF;
     }
 }
 
