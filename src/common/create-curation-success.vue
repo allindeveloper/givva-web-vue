@@ -29,8 +29,8 @@ const props = defineProps<{
 
 <style scoped>
 .root {
-    margin-bottom: 80px;
-    width: 484px;
+    margin-bottom: 10px;
+    width: 450px;
     margin-inline: auto;
 
     @media (max-width: 678px) {

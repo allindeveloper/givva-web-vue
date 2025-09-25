@@ -27,3 +27,9 @@ export type CreateCurationFormType = {
   giftTypes?: string[];
   createdMs?: number;
 } & z.infer<typeof CreateCurationFormSchema>;
+
+export type CurationFilterPayload = {
+  occassion: string; 
+  relationship: string 
+  ageRange: string
+}

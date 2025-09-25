@@ -9,7 +9,7 @@ import { usePagination } from '@/composables/use-pagination';
 import ActionHeaderContainer from '@/components/action-header-container.vue';
 import Dialog from '@/components/dialog.vue';
 import CreateCurationForm from '@/common/create-curation-form.vue';
-import type { CreateCurationFormType } from '@/types/curation';
+import type { CreateCurationFormType, CurationFilterPayload } from '@/types/curation';
 import CreateCurationSuccess from '@/common/create-curation-success.vue';
 import { useRouter } from 'vue-router';
 
@@ -78,6 +78,27 @@ const handleInputChange = (e: HTMLInputElement) => {
 
   setCurrentPage(1);
 };
+
+const handleApplyFilter = (filterParams: CurationFilterPayload) => {
+  const allCurations = getCurations();
+
+  const filteredData = allCurations.filter((c) =>
+    Object.entries(filterParams).every(
+      ([key, value]) =>
+        !value || c[key as keyof CurationFilterPayload]?.toLowerCase() === value.toLowerCase()
+    )
+  );
+
+  curations.value = filteredData;
+  setCurrentPage(1);
+};
+
+
+const handleResetFilter = () => {
+  const allCurations = getCurations();
+  curations.value = allCurations;
+  setCurrentPage(1);
+}
 </script>
 
 <template>
@@ -88,7 +109,8 @@ const handleInputChange = (e: HTMLInputElement) => {
       <ActionHeaderContainer :handleCreate="handleCreate" :title="'Hey Precious 👋 '" :description="'Welcome Back'" />
     </div>
     <div class="search-filter-container">
-      <SearchFilterContainer :handleChange="handleInputChange" />
+      <SearchFilterContainer :handleResetFilter="handleResetFilter" :handleApplyFilter="handleApplyFilter"
+        :handleChange="handleInputChange" />
     </div>
 
     <div class="curation-list">
@@ -98,6 +120,9 @@ const handleInputChange = (e: HTMLInputElement) => {
     <Pagination v-if="Number(totalPages) > 1" :handlePreviousPage="handlePrevious" :handleNextPage="handleNext"
       :currentPage="currentPage" :totalPages="totalPages" />
 
+    <div v-if="paginatedData.length === 0">
+      <p class="no-records">No Records found!</p>
+    </div>
     <Dialog :open="showDialog" title="Create a Gift" description="Please fill the input field below" :showClose="true"
       @close="showDialog = false">
       <CreateCurationForm :handleCancel="handleCancelCuration" :handleCreate="handleSaveCuration" />
@@ -126,6 +151,21 @@ main {
 
 .search-filter-container {
   margin-top: 40px;
+}
+
+.no-records {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #6b7280;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px dashed #d1d5db;
+  margin-inline: auto;
+  width: 400px;
 }
 
 .curation-list {

@@ -76,7 +76,7 @@ onUnmounted(() => {
 
     @media (max-width: 678px) {
         align-items: start;
-        margin-top: 4px;
+        padding-top: 20px;
     }
 }
 
@@ -91,7 +91,7 @@ onUnmounted(() => {
     animation: fadeIn 0.2s ease-out;
 
     @media (max-width: 678px) {
-        margin-inline: 4px;
+        margin-inline: 6px;
         width: 100%;
     }
 }

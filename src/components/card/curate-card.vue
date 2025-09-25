@@ -14,7 +14,8 @@ const props = defineProps<{
 
 <template>
     <component :is="props.detailsPage ? 'div' : RouterLink"
-        v-bind="!props.detailsPage ? { to: `/curation/${props.id}` } : {}" class="card-wrapper">
+        v-bind="!props.detailsPage ? { to: `/curation/${props.id}` } : {}"
+        :class="!props.detailsPage ? 'card-wrapper' : 'card-wrapper-default'">
         <img :src="curateimage" alt="Curate Image" class="card-image" />
 
         <p v-if="props.name" class="card-name">
@@ -39,6 +40,11 @@ const props = defineProps<{
 
 .card-wrapper:hover {
     opacity: 0.7;
+}
+
+.card-wrapper-default {
+    transition: opacity 0.2s ease-in-out;
+    text-decoration: none;
 }
 
 .card-image {

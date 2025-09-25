@@ -1,10 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { h, ref } from 'vue';
 import Input from '../components/input.vue';
 import SearchIcon from './icons/search-icon.vue';
+import FilterButton from './filter-button.vue';
+import FilterContent from '@/common/filter/filter-content.vue';
+import type { CurationFilterPayload } from '@/types/curation';
+import PopOver from './pop-over.vue';
 
 const props = defineProps<{
     handleChange?: (e: HTMLInputElement) => void;
+    handleApplyFilter: (payload: CurationFilterPayload) => void
+    handleResetFilter: () => void
 }>();
 
 const searchValue = ref('');
@@ -13,6 +19,13 @@ const handleInput = (e: HTMLInputElement) => {
     searchValue.value = e.value;
     props.handleChange?.(e);
 };
+
+const FilterContentWithEmit = () =>
+    h(FilterContent, {
+        onFilter: props.handleApplyFilter,
+        onReset: props.handleResetFilter
+    });
+
 </script>
 
 <template>
@@ -24,6 +37,8 @@ const handleInput = (e: HTMLInputElement) => {
             <Input :modelValue="searchValue" @input="handleInput" customClass="search-field"
                 :iconProps="{ className: 'search-icon' }" :startIcon="SearchIcon"
                 :placeholder="'What type of gift ideas are you interested in?'" />
+            <!-- pop-over -->
+            <PopOver :action="FilterButton" :content="FilterContentWithEmit" />
         </div>
     </div>
     <hr />
@@ -38,12 +53,15 @@ const handleInput = (e: HTMLInputElement) => {
     flex: 1;
     display: flex;
     justify-content: flex-end;
+    align-items: baseline;
+    gap: 20px;
 }
 
 :deep(.search-field) {
     width: 100%;
     max-width: 600px;
-    /* longer by default */
+
+    margin-bottom: 0;
     min-width: 280px;
 }
 
@@ -67,5 +85,6 @@ p {
     font-size: 32px;
     color: #1D1D1D;
     margin-bottom: 0;
+    margin-top: 0;
 }
 </style>

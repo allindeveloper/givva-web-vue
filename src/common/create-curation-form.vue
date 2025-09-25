@@ -15,6 +15,7 @@ import AgeRangeIcon from "@/components/icons/age-range-icon.vue";
 import Input from "@/components/input.vue";
 import AccountIcon from "@/components/icons/account-icon.vue";
 import CurateCardSelect from "./curate-card-select.vue";
+import { ageRanges, ocassionData, relationshipData } from "@/data/dummy-curations";
 
 const props = defineProps<{
     handleCreate: (data: CreateCurationFormType) => void;
@@ -24,17 +25,6 @@ const props = defineProps<{
 const step = ref(1);
 const giftTypes = ref<string[]>([]);
 
-const ageRanges = [
-    { label: "9-15", value: "9-15" },
-    { label: "15-30", value: "15-30" },
-    { label: "30-35", value: "30-35" },
-];
-
-const relationshipData = [
-    { label: "Single", value: "single" },
-    { label: "Married", value: "married" },
-    { label: "Divorced", value: "divorced" },
-];
 
 const dummyGifts = ["Cake", "Bag", "Heels", "Glasses", "Bracelet", "Shoes"];
 
@@ -92,7 +82,7 @@ const handleSave = () => {
                     :labelIcon="InterestsIcon" :errorMessage="errors.interests" />
 
                 <Select :modelValue="values.occassion" @update:modelValue="setFieldValue('occassion', $event)"
-                    :items="relationshipData" label="Occassion" placeholder="Select" :labelIcon="OccassionIcon"
+                    :items="ocassionData" label="Occassion" placeholder="Select" :labelIcon="OccassionIcon"
                     :errorMessage="errors.occassion" />
 
                 <Textarea className="input-field" placeholder="Any other thing you want us to know" label="Note"

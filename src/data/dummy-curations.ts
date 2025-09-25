@@ -1,4 +1,4 @@
-import type { CreateCurationFormType } from "@/curation";
+import type { CreateCurationFormType } from "@/types/curation";
 
 export const dummyCurations: CreateCurationFormType[] = [
   {
@@ -12,7 +12,7 @@ export const dummyCurations: CreateCurationFormType[] = [
   },
   {
     name: "Anniversary",
-    ageRange: "25-40",
+    ageRange: "45-55",
     relationship: "Partner",
     interests: "Travel, Food",
     occassion: "Anniversary",
@@ -21,7 +21,7 @@ export const dummyCurations: CreateCurationFormType[] = [
   },
   {
     name: "Christmas",
-    ageRange: "All",
+    ageRange: "45-55",
     relationship: "Family",
     interests: "Decor, Gifts",
     occassion: "Christmas",
@@ -30,7 +30,7 @@ export const dummyCurations: CreateCurationFormType[] = [
   },
   {
     name: "Graduation",
-    ageRange: "20-30",
+    ageRange: "18-25",
     relationship: "Sibling",
     interests: "Books, Gadgets",
     occassion: "Graduation",
@@ -39,7 +39,7 @@ export const dummyCurations: CreateCurationFormType[] = [
   },
   {
     name: "Valentine's Day",
-    ageRange: "18-40",
+    ageRange: "18-25",
     relationship: "Partner",
     interests: "Flowers, Chocolate",
     occassion: "Valentine's",
@@ -48,7 +48,7 @@ export const dummyCurations: CreateCurationFormType[] = [
   },
   {
     name: "Housewarming",
-    ageRange: "25-50",
+    ageRange: "45-55",
     relationship: "Friend",
     interests: "Home Decor",
     occassion: "Housewarming",
@@ -57,7 +57,7 @@ export const dummyCurations: CreateCurationFormType[] = [
   },
   {
     name: "Baby Shower",
-    ageRange: "20-35",
+    ageRange: "25-35",
     relationship: "Colleague",
     interests: "Baby clothes, Toys",
     occassion: "Baby Shower",
@@ -66,7 +66,7 @@ export const dummyCurations: CreateCurationFormType[] = [
   },
   {
     name: "Farewell",
-    ageRange: "30-50",
+    ageRange: "35-45",
     relationship: "Colleague",
     interests: "Travel, Keepsakes",
     occassion: "Farewell",
@@ -75,7 +75,7 @@ export const dummyCurations: CreateCurationFormType[] = [
   },
   {
     name: "Engagement",
-    ageRange: "20-35",
+    ageRange: "25-35",
     relationship: "Cousin",
     interests: "Jewelry, Celebration",
     occassion: "Engagement",
@@ -84,7 +84,7 @@ export const dummyCurations: CreateCurationFormType[] = [
   },
   {
     name: "Easter",
-    ageRange: "All",
+    ageRange: "25-35",
     relationship: "Family",
     interests: "Religion, Chocolates",
     occassion: "Easter",
@@ -111,7 +111,7 @@ export const dummyCurations: CreateCurationFormType[] = [
   },
   {
     name: "Get Well Soon",
-    ageRange: "All",
+    ageRange: "45-55",
     relationship: "Relative",
     interests: "Flowers, Books",
     occassion: "Health",
@@ -120,7 +120,7 @@ export const dummyCurations: CreateCurationFormType[] = [
   },
   {
     name: "Promotion",
-    ageRange: "25-40",
+    ageRange: "35-45",
     relationship: "Colleague",
     interests: "Watches, Accessories",
     occassion: "Promotion",
@@ -129,7 +129,7 @@ export const dummyCurations: CreateCurationFormType[] = [
   },
   {
     name: "Mother's Day",
-    ageRange: "40-60",
+    ageRange: "45-55",
     relationship: "Mother",
     interests: "Flowers, Jewelry",
     occassion: "Mother's Day",
@@ -138,7 +138,7 @@ export const dummyCurations: CreateCurationFormType[] = [
   },
   {
     name: "Father's Day",
-    ageRange: "40-60",
+    ageRange: "45-55",
     relationship: "Father",
     interests: "Watches, Gadgets",
     occassion: "Father's Day",
@@ -147,7 +147,7 @@ export const dummyCurations: CreateCurationFormType[] = [
   },
   {
     name: "Thank You",
-    ageRange: "All",
+    ageRange: "35-45",
     relationship: "Mentor",
     interests: "Books, Wine",
     occassion: "Appreciation",
@@ -156,7 +156,7 @@ export const dummyCurations: CreateCurationFormType[] = [
   },
   {
     name: "Friendship",
-    ageRange: "18-30",
+    ageRange: "18-25",
     relationship: "Best Friend",
     interests: "Games, Movies",
     occassion: "Friendship Day",
@@ -174,11 +174,34 @@ export const dummyCurations: CreateCurationFormType[] = [
   },
   {
     name: "Back to School",
-    ageRange: "5-18",
+    ageRange: "5-10",
     relationship: "Sibling",
     interests: "Stationery, Backpacks",
     occassion: "School",
     note: "Encourage studies",
     giftTypes: ["Bag", "Cake"],
   },
+];
+
+export const ageRanges = [
+  { label: "5-10", value: "5-10" },
+    { label: "10-18", value: "10-18" },
+    { label: "18-25", value: "18-25" },
+     { label: "25-35", value: "25-35" },
+    { label: "35-45", value: "35-45" },
+    { label: "45-55", value: "45-55" },
+     { label: "55+", value: "55+" },
+];
+
+export const relationshipData = [
+    { label: "Single", value: "single" },
+    { label: "Married", value: "married" },
+    { label: "Divorced", value: "divorced" },
+];
+
+export const ocassionData = [
+    { label: "Wedding", value: "wedding" },
+    { label: "Birthday", value: "birthday" },
+    { label: "Burial", value: "Burial" },
+    { label: "Child Dedication", value: "Child Dedication" },
 ];

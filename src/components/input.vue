@@ -56,13 +56,14 @@ const handleInput = (event: Event) => {
 .label-error {
     font-size: 12px;
     color: #dc2626;
-    margin-top: 0px;
+    margin-top: 10px;
 }
 
 .label-content {
     display: flex;
     align-items: center;
     gap: 6px;
+    margin-bottom: 10px;
 }
 
 .input-container {
@@ -71,8 +72,6 @@ const handleInput = (event: Event) => {
     gap: 10px;
     border-radius: 8px;
     width: 100%;
-    margin-bottom: 10px;
-    margin-top: 10px;
     background-color: #F9FAFB;
     height: 42px;
 }
