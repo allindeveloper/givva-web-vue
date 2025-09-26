@@ -82,6 +82,7 @@ const handleInput = (event: Event) => {
     padding-right: 10px;
     width: 100%;
     height: 42px;
+    font-weight: 400;
     font-size: 16px;
     border: none;
     padding-left: 14px;
