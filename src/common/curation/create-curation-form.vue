@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { useForm } from "vee-validate";
+import { nextTick, onMounted, ref, watch } from "vue";
+import { useForm, type FormMeta } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 
 import { CreateCurationFormSchema, type CreateCurationFormType, type Gift } from "@/types/curation";
@@ -13,20 +13,24 @@ import InterestsIcon from "@/components/icons/interests-icon.vue";
 import AgeRangeIcon from "@/components/icons/age-range-icon.vue";
 import Input from "@/components/input.vue";
 import AccountIcon from "@/components/icons/account-icon.vue";
-import CurateCardSelect from "./curate-card-select.vue";
 import { ageRanges, dummyGifts, ocassionData, relationshipData } from "@/data/dummy-curations";
-import DialogActions from "@/components/dialog/dialog-actions.vue";
+import CurateCardSelect from "./curate-card-select.vue";
 
 const props = defineProps<{
     handleCreate: (data: CreateCurationFormType) => void;
     handleCancel: () => void;
+}>();
+const emit = defineEmits<{
+    (e: 'stepChange', step: number): void
+    (e: 'formMeta', meta: FormMeta<CreateCurationFormType>): void
+    (e: 'giftTypesSelected', giftType: Gift[]): void
 }>();
 
 const step = ref(1);
 const giftTypes = ref<Gift[]>([]);
 
 
-const { handleSubmit, errors, values, meta, setFieldValue } = useForm<CreateCurationFormType>({
+const { handleSubmit, errors, values, validate, meta, setFieldValue } = useForm<CreateCurationFormType>({
     validationSchema: toTypedSchema(CreateCurationFormSchema),
     validateOnMount: false,
     initialValues: {
@@ -47,6 +51,7 @@ onMounted(() => {
 
 const onSubmit = handleSubmit(() => {
     step.value = 2;
+    emit('stepChange', 2);
 });
 
 const handleSelectGift = (gift: Gift) => {
@@ -56,14 +61,65 @@ const handleSelectGift = (gift: Gift) => {
     } else {
         giftTypes.value.push(gift);
     }
+    emit("giftTypesSelected", giftTypes.value)
 };
 
-const handleSave = () => {
+watch(meta, (newMeta) => {
+    emit('formMeta', newMeta);
+}, {
+    deep: false,
+    immediate: true
+});
+
+const handleSave = async () => {
+    const { valid } = await validate();
+    if (!valid) {
+        return
+    }
+    if (step.value === 1) {
+        step.value = 2
+        emit('stepChange', 2);
+        await nextTick();
+        return;
+    }
+    emit('stepChange', 1);
     props.handleCreate({
         ...values,
         giftTypes: giftTypes.value,
     });
 };
+
+function setupDialogListeners() {
+    const handleDialogSave = () => {
+        handleSave()
+    }
+
+    const handleDialogCancel = () => {
+        emit('stepChange', 1);
+        props.handleCancel()
+    }
+
+    const handleDialogClose = () => {
+        emit('stepChange', 1);
+        props.handleCancel()
+    }
+
+    // Listen for custom events
+    window.addEventListener('dialog-close', handleDialogClose)
+    window.addEventListener('dialog-save', handleDialogSave)
+    window.addEventListener('dialog-cancel', handleDialogCancel)
+
+    return () => {
+        window.removeEventListener('dialog-close', handleDialogClose)
+        window.removeEventListener('dialog-save', handleDialogSave)
+        window.removeEventListener('dialog-cancel', handleDialogCancel)
+    }
+}
+
+onMounted(() => {
+    setupDialogListeners()
+})
+
 </script>
 
 <template>
@@ -94,9 +150,6 @@ const handleSave = () => {
                     :modelValue="values.note" @update:modelValue="setFieldValue('note', $event)" :labelIcon="NoteIcon"
                     :errorMessage="errors.note" />
 
-                <div>
-                    <DialogActions :submitDisabled="!meta.valid" submitText="Curate" />
-                </div>
             </form>
         </div>
 
@@ -106,10 +159,6 @@ const handleSave = () => {
                     :name="gift.name" :image="gift.image" @click="handleSelectGift(gift)" />
             </div>
 
-            <div class="step-two-actions">
-                <DialogActions :submitDisabled="!giftTypes.length" :handleCancel="handleCancel"
-                    :handleSubmit="handleSave" />
-            </div>
         </div>
     </div>
 </template>
@@ -146,9 +195,5 @@ const handleSave = () => {
 
 .step-two-container {
     margin-bottom: 0px;
-}
-
-.step-two-actions {
-    position: relative;
 }
 </style>

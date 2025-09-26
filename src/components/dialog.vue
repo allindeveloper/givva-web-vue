@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { onUnmounted, watch } from "vue";
 import CloseIcon from "./icons/close-icon.vue";
+import DialogActions from "./dialog/dialog-actions.vue";
+import type { DialogActionProps } from "@/types/dialog";
 
 interface DialogProps {
     open: boolean;
@@ -9,55 +11,70 @@ interface DialogProps {
     showClose?: boolean;
     handleSave?: () => void;
     handleCancel?: () => void;
+    actionProps?: DialogActionProps
 }
 
 const props = defineProps<DialogProps>();
-
 const emit = defineEmits<{
     (e: "close"): void;
+    (e: "cancel"): void;
+    (e: "save"): void;
 }>();
 
-function handleClose() {
+function handleClose(e: any) {
     emit("close");
+    const event = new CustomEvent('dialog-cancel', { bubbles: true });
+    (e.currentTarget as HTMLElement)?.dispatchEvent(event);
 }
 
 function onBackdropClick(e: MouseEvent) {
-    if (e.target === e.currentTarget) {
-        handleClose();
-    }
+    if (e.target === e.currentTarget) handleClose(e);
 }
 
-watch(
-    () => props.open,
-    (isOpen) => {
-        document.body.style.overflow = isOpen ? "hidden" : "";
-    }
-);
+watch(() => props.open, (isOpen) => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+});
 
 onUnmounted(() => {
     document.body.style.overflow = "";
 });
+
+function handleCancel(e: any) {
+    emit("cancel");
+    const event = new CustomEvent('dialog-cancel', { bubbles: true });
+    (e.currentTarget as HTMLElement)?.dispatchEvent(event);
+}
+
+function handleSave(e: any) {
+    emit("save");
+    const event = new CustomEvent('dialog-save', { bubbles: true });
+    (e.currentTarget as HTMLElement)?.dispatchEvent(event);
+}
 </script>
 
 <template>
     <Teleport to="body">
         <div v-if="open" class="dialog-backdrop" @click="onBackdropClick">
             <div class="dialog-box">
-                <p v-if="title" class="dialog-title">
-                    {{ title }}
-                </p>
+                <div class="dialog-header">
+                    <p v-if="title" class="dialog-title">{{ title }}</p>
+                    <p v-if="description" class="dialog-description">{{ description }}</p>
 
-                <p v-if="description" class="dialog-description">
-                    {{ description }}
-                </p>
-                <hr v-if="!!title" />
-
-                <button v-if="showClose" @click="handleClose" class="dialog-close-btn" aria-label="Close dialog">
-                    <CloseIcon />
-                </button>
+                    <hr v-if="!!title" />
+                    <button v-if="showClose" @click="handleClose" class="dialog-close-btn" aria-label="Close dialog">
+                        <CloseIcon />
+                    </button>
+                </div>
 
                 <div class="dialog-content">
                     <slot />
+                </div>
+
+                <div class="bottom-actions">
+                    <DialogActions :cancelDisabled="props.actionProps?.cancelDisabled"
+                        :submitDisabled="props.actionProps?.submitDisabled" :showCancel="props.actionProps?.showCancel"
+                        :showSubmit="props.actionProps?.showSubmit" :handleCancel="handleCancel"
+                        :handleSubmit="handleSave" fullWidth />
                 </div>
             </div>
         </div>
@@ -73,11 +90,7 @@ onUnmounted(() => {
     align-items: center;
     justify-content: center;
     z-index: 9999;
-
-    @media (max-width: 678px) {
-        align-items: start;
-        padding-top: 20px;
-    }
+    padding: 20px 0;
 }
 
 .dialog-box {
@@ -96,26 +109,30 @@ onUnmounted(() => {
     }
 }
 
+.dialog-header {
+    position: relative;
+    flex-shrink: 0;
+}
+
 .dialog-title {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 0px;
-    margin-top: 20px;
     padding-inline: 24px;
 }
 
 .dialog-description {
     font-size: 16px;
     color: #1D1D1D;
-    margin-bottom: 16px;
-    margin-top: 10px;
     font-weight: 400;
+    margin-bottom: 0px;
+    margin-top: 0px;
     padding-inline: 24px;
 }
 
 .dialog-close-btn {
     position: absolute;
-    top: 16px;
+    top: 0px;
     right: 16px;
     cursor: pointer;
     background: none;
@@ -128,7 +145,26 @@ onUnmounted(() => {
     max-height: calc(80vh - 100px);
     padding-inline: 24px;
     box-sizing: border-box;
-    padding-bottom: 40px;
+    padding-bottom: 80px;
+}
+
+.bottom-actions {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    padding-inline: 24px;
+    display: flex;
+    justify-content: stretch;
+    z-index: 10;
+    box-sizing: border-box;
+}
+
+/* Make buttons inside DialogActions stretch */
+.bottom-actions :deep(button) {
+    flex: 1;
+    margin: 0 8px;
+    width: 100%;
 }
 
 hr {

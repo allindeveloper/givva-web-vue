@@ -41,7 +41,7 @@ export const dummyCurations: CreateCurationFormType[] = [
     interests: "Music, Games",
     occassion: "Birthday",
     note: "For a close friend who loves concerts",
-    giftTypes: [dummyGifts[0], dummyGifts[1]], // Cake, Heels
+    giftTypes: [dummyGifts[0], dummyGifts[1]],
   },
   {
     name: "Anniversary",
@@ -50,7 +50,7 @@ export const dummyCurations: CreateCurationFormType[] = [
     interests: "Travel, Food",
     occassion: "Anniversary",
     note: "Romantic dinner setup",
-    giftTypes: [dummyGifts[4], dummyGifts[6]], // Bracelet, Shoes
+    giftTypes: [dummyGifts[4], dummyGifts[5]],
   },
   {
     name: "Christmas",
@@ -59,7 +59,7 @@ export const dummyCurations: CreateCurationFormType[] = [
     interests: "Decor, Gifts",
     occassion: "Christmas",
     note: "Family-centered celebration",
-    giftTypes: [dummyGifts[0], dummyGifts[5]], // Cake, Glasses
+    giftTypes: [dummyGifts[0], dummyGifts[5]],
   },
   {
     name: "Graduation",
@@ -68,7 +68,7 @@ export const dummyCurations: CreateCurationFormType[] = [
     interests: "Books, Gadgets",
     occassion: "Graduation",
     note: "Encourage them for next journey",
-    giftTypes: [dummyGifts[3], dummyGifts[6]], // Bag, Shoes
+    giftTypes: [dummyGifts[3], dummyGifts[5]],
   },
   {
     name: "Valentine's Day",
@@ -77,7 +77,7 @@ export const dummyCurations: CreateCurationFormType[] = [
     interests: "Flowers, Chocolate",
     occassion: "Valentine's",
     note: "Keep it romantic and simple",
-    giftTypes: [dummyGifts[4], dummyGifts[1]], // Bracelet, Heels
+    giftTypes: [dummyGifts[4], dummyGifts[1]],
   },
   {
     name: "Housewarming",
@@ -86,7 +86,7 @@ export const dummyCurations: CreateCurationFormType[] = [
     interests: "Home Decor",
     occassion: "Housewarming",
     note: "Practical home gifts",
-    giftTypes: [dummyGifts[5], dummyGifts[0]], // Glasses, Cake
+    giftTypes: [dummyGifts[5], dummyGifts[0]],
   },
   {
     name: "Baby Shower",
@@ -95,7 +95,7 @@ export const dummyCurations: CreateCurationFormType[] = [
     interests: "Baby clothes, Toys",
     occassion: "Baby Shower",
     note: "Useful for the newborn",
-    giftTypes: [dummyGifts[3], dummyGifts[6]], // Bag, Shoes
+    giftTypes: [dummyGifts[3], dummyGifts[5]],
   },
   {
     name: "Farewell",
@@ -104,7 +104,7 @@ export const dummyCurations: CreateCurationFormType[] = [
     interests: "Travel, Keepsakes",
     occassion: "Farewell",
     note: "A memory gift before relocation",
-    giftTypes: [dummyGifts[5], dummyGifts[4]], // Glasses, Bracelet
+    giftTypes: [dummyGifts[5], dummyGifts[4]],
   },
   {
     name: "Engagement",
@@ -131,7 +131,7 @@ export const dummyCurations: CreateCurationFormType[] = [
     interests: "Books, Relaxation",
     occassion: "Retirement",
     note: "A calm and memorable gift",
-    giftTypes: [dummyGifts[6], dummyGifts[3]],
+    giftTypes: [dummyGifts[5], dummyGifts[3]],
   },
   {
     name: "New Job",
@@ -158,7 +158,7 @@ export const dummyCurations: CreateCurationFormType[] = [
     interests: "Watches, Accessories",
     occassion: "Promotion",
     note: "Celebrate success",
-    giftTypes: [dummyGifts[6], dummyGifts[1]],
+    giftTypes: [dummyGifts[5], dummyGifts[1]],
   },
   {
     name: "Mother's Day",
@@ -176,7 +176,7 @@ export const dummyCurations: CreateCurationFormType[] = [
     interests: "Watches, Gadgets",
     occassion: "Father's Day",
     note: "Show gratitude",
-    giftTypes: [dummyGifts[5], dummyGifts[6]],
+    giftTypes: [dummyGifts[5], dummyGifts[4]],
   },
   {
     name: "Thank You",
@@ -203,7 +203,7 @@ export const dummyCurations: CreateCurationFormType[] = [
     interests: "Household items",
     occassion: "Wedding",
     note: "Support their new home",
-    giftTypes: [dummyGifts[6], dummyGifts[3]],
+    giftTypes: [dummyGifts[4], dummyGifts[3]],
   },
   {
     name: "Back to School",

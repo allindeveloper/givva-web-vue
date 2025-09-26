@@ -1,25 +1,17 @@
 <script lang="ts" setup>
+import type { DialogActionProps } from '@/types/dialog';
 import Button from '../button.vue';
 
-type DialogActionProps = {
-    submitDisabled?: boolean
-    cancelDisabled?: boolean
-    handleCancel?: () => void;
-    handleSubmit?: () => void;
-    submitText?: string;
-    cancelText?: string
-}
+
 const props = defineProps<DialogActionProps>();
 
 </script>
 <template>
-    <div>
-        <div class="step-two-actions">
-            <Button v-if="!!handleCancel" :label="props.cancelText ?? 'Cancel'" type="reset" @click="handleCancel"
-                className="cancel-button" />
-            <Button type="submit" :disabled="props.submitDisabled" :label="props.submitText ?? 'Save'"
-                className="save-button" @click="handleSubmit" />
-        </div>
+    <div class="step-two-actions">
+        <Button v-if="showCancel" :label="props.cancelText ?? 'Cancel'" type="reset" @click="handleCancel"
+            className="cancel-button" />
+        <Button v-if="showSubmit" type="submit" :disabled="props.submitDisabled" :label="props.submitText ?? 'Save'"
+            className="save-button" @click="handleSubmit" />
     </div>
 </template>
 
@@ -30,7 +22,7 @@ const props = defineProps<DialogActionProps>();
     align-items: center;
     gap: 5px;
     margin-top: 20px;
-    margin-bottom: 0px;
+    margin-bottom: 20px;
     width: 100%;
 }
 

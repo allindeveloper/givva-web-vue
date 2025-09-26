@@ -29,7 +29,7 @@ const props = defineProps<{
 
 <style scoped>
 .root {
-    margin-bottom: 10px;
+    margin-bottom: -50px;
     width: 400px;
     margin-inline: auto;
 

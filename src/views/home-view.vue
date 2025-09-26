@@ -7,19 +7,15 @@ import CurateCard from '@/components/card/curate-card.vue';
 import { addCuration, getCurations } from '@/utils/curation-storage';
 import { usePagination } from '@/composables/use-pagination';
 import ActionHeaderContainer from '@/components/action-header-container.vue';
-import Dialog from '@/components/dialog.vue';
-import CreateCurationForm from '@/common/create-curation-form.vue';
 import type { CreateCurationFormType, CurationFilterPayload } from '@/types/curation';
-import CreateCurationSuccess from '@/common/create-curation-success.vue';
+import CreateCuration from '@/common/curation/create-curation.vue';
 import { useRouter } from 'vue-router';
-
-const router = useRouter()
 
 const curations = ref(getCurations())
 const showDialog = ref(false);
-const showSuccessDialog = ref(false);
-
 const { paginatedData, totalPages, currentPage, setCurrentPage } = usePagination<CreateCurationFormType>(curations, 10);
+const router = useRouter()
+const createdCuration = ref<CreateCurationFormType | null>(null)
 
 const handleNext = () => {
   if (currentPage.value === totalPages.value) {
@@ -35,31 +31,6 @@ const handlePrevious = () => {
   setCurrentPage(currentPage.value - 1);
 };
 
-const handleCreate = () => {
-  showDialog.value = true;
-}
-
-const handleSaveCuration = (data: CreateCurationFormType) => {
-  const newCreation = addCuration(data);
-  curations.value.unshift(newCreation);
-  showDialog.value = false;
-
-  showSuccessDialog.value = true;
-};
-
-const handleCancelCuration = () => {
-  showDialog.value = false;
-};
-
-const handleDetails = () => {
-  showSuccessDialog.value = false;
-  router.push('/curation/' + curations.value[0].id);
-};
-
-const handleGoHome = () => {
-  showSuccessDialog.value = false;
-  router.push('/home');
-};
 
 const handleInputChange = (e: HTMLInputElement) => {
   const searchValue = e.value;
@@ -100,6 +71,26 @@ const handleResetFilter = () => {
   setCurrentPage(1);
 }
 
+const handleCreate = () => {
+  showDialog.value = true;
+}
+
+const handleCloseDialog = () => {
+  showDialog.value = false;
+}
+
+const handleSaveCuration = (data: CreateCurationFormType) => {
+  handleCloseDialog();
+  const newCreation = addCuration(data);
+  curations.value.unshift(newCreation);
+  createdCuration.value = newCreation
+}
+
+const handleDetailsCallback = () => {
+  router.push(`/curation/${createdCuration.value?.id}`);
+
+}
+
 </script>
 
 <template>
@@ -125,15 +116,11 @@ const handleResetFilter = () => {
     <div v-if="paginatedData.length === 0">
       <p class="no-records">No Records found!</p>
     </div>
-    <Dialog :open="showDialog" title="Create a Gift" description="Please fill the input field below" :showClose="true"
-      @close="showDialog = false">
-      <CreateCurationForm :handleCancel="handleCancelCuration" :handleCreate="handleSaveCuration" />
-    </Dialog>
 
-    <Dialog :open="showSuccessDialog" :showClose="false" @close="showSuccessDialog = false">
-      <CreateCurationSuccess :handleGoHome="handleGoHome" :handleDetails="handleDetails" />
-    </Dialog>
+    <CreateCuration :handleDetailsCallback="handleDetailsCallback" :handleSaveCuration="handleSaveCuration"
+      :handleCloseDialog="handleCloseDialog" :showDialog="showDialog" />
   </main>
+
 </template>
 
 <style scoped>
