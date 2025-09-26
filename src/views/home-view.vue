@@ -17,10 +17,17 @@ const { paginatedData, totalPages, currentPage, setCurrentPage } = usePagination
 const router = useRouter()
 const createdCuration = ref<CreateCurationFormType | null>(null)
 
+const handlePapinationScrol = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  })
+}
 const handleNext = () => {
   if (currentPage.value === totalPages.value) {
     return;
   }
+  handlePapinationScrol()
   setCurrentPage(currentPage.value + 1);
 };
 
@@ -28,6 +35,7 @@ const handlePrevious = () => {
   if (currentPage.value === 1) {
     return;
   }
+  handlePapinationScrol()
   setCurrentPage(currentPage.value - 1);
 };
 
