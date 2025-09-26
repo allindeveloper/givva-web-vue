@@ -78,6 +78,16 @@ const props = defineProps<{
     width: 208px;
     height: 138px;
 
+    @media (max-width: 1280px) {
+        width: 100%;
+        height: auto;
+    }
+
+    @media (max-width: 1024px) {
+        width: 100%;
+        height: 150px;
+    }
+
     @media (max-width: 678px) {
         width: 100%;
         height: 124px;

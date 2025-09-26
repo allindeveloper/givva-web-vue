@@ -99,7 +99,7 @@ const handleResetFilter = () => {
   curations.value = allCurations;
   setCurrentPage(1);
 }
-console.log("curr", currentPage.value)
+
 </script>
 
 <template>
@@ -144,6 +144,14 @@ main {
   @media (max-width: 678px) {
     margin-inline: 12px;
   }
+
+  @media (max-width: 1024px) {
+    margin-inline: 12px;
+  }
+
+  @media (max-width: 1280px) {
+    margin-inline: 12px;
+  }
 }
 
 .action-header-container {
@@ -176,9 +184,19 @@ main {
   gap: 40px;
   margin: 40px 0;
 
+  @media (max-width: 1280px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
   @media (max-width: 678px) {
-    gap: 20px;
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 }
 </style>

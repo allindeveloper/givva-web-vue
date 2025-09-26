@@ -29,8 +29,8 @@ const togglePopover = async () => {
 };
 
 const adjustPopoverPosition = () => {
-    const wrapperRect = popoverWrapper.value.getBoundingClientRect();
-    const contentRect = popoverContent.value.getBoundingClientRect();
+    const wrapperRect = popoverWrapper.value?.getBoundingClientRect();
+    const contentRect = popoverContent.value?.getBoundingClientRect();
 
     const spaceLeft = wrapperRect.left;
     const spaceRight = window.innerWidth - wrapperRect.right;

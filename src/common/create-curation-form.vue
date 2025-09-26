@@ -3,7 +3,6 @@ import { onMounted, ref } from "vue";
 import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 
-import Button from "@/components/button.vue";
 import { CreateCurationFormSchema, type CreateCurationFormType, type Gift } from "@/types/curation";
 import Textarea from "@/components/textarea.vue";
 import NoteIcon from "@/components/icons/note-icon.vue";
@@ -16,6 +15,7 @@ import Input from "@/components/input.vue";
 import AccountIcon from "@/components/icons/account-icon.vue";
 import CurateCardSelect from "./curate-card-select.vue";
 import { ageRanges, dummyGifts, ocassionData, relationshipData } from "@/data/dummy-curations";
+import DialogActions from "@/components/dialog/dialog-actions.vue";
 
 const props = defineProps<{
     handleCreate: (data: CreateCurationFormType) => void;
@@ -95,7 +95,7 @@ const handleSave = () => {
                     :errorMessage="errors.note" />
 
                 <div>
-                    <Button :disabled="!meta.valid" label="Curate" type="submit" className="submit-button" />
+                    <DialogActions :submitDisabled="!meta.valid" submitText="Curate" />
                 </div>
             </form>
         </div>
@@ -107,8 +107,8 @@ const handleSave = () => {
             </div>
 
             <div class="step-two-actions">
-                <Button label="Cancel" type="reset" @click="handleCancel" className="cancel-button" />
-                <Button :disabled="!giftTypes.length" label="Save" className="save-button" @click="handleSave" />
+                <DialogActions :submitDisabled="!giftTypes.length" :handleCancel="handleCancel"
+                    :handleSubmit="handleSave" />
             </div>
         </div>
     </div>
@@ -145,30 +145,10 @@ const handleSave = () => {
 }
 
 .step-two-container {
-    margin-bottom: 40px;
+    margin-bottom: 0px;
 }
 
 .step-two-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 5px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    position: absolute;
-    width: 100%;
-}
-
-.cancel-button {
-    background: #FDFDFD;
-    border: 1px solid #D5D7DA;
-    box-shadow: 0px 1px 2px 0px #0A0D120D;
-    color: #292929;
-    font-weight: 500;
-    font-size: 14px;
-}
-
-.save-button {
-    background: #4DA1FF;
+    position: relative;
 }
 </style>

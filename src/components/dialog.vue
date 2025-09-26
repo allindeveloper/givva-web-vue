@@ -128,7 +128,7 @@ onUnmounted(() => {
     max-height: calc(80vh - 100px);
     padding-inline: 24px;
     box-sizing: border-box;
-    padding-bottom: 60px;
+    padding-bottom: 40px;
 }
 
 hr {

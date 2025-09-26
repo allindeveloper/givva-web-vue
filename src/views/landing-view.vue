@@ -114,7 +114,8 @@ p {
 
   @media (max-width: 678px) {
     display: block;
-    margin-inline: 8px;
+    margin-inline: 12px;
+    margin-top: 60px;
   }
 }
 
@@ -144,6 +145,10 @@ p {
   position: absolute;
   bottom: 20px;
   right: 140px;
+
+  @media (max-width: 678px) {
+    right: 100px;
+  }
 }
 
 .dot-three {

@@ -103,6 +103,14 @@ const handleGoBack = () => {
     @media (max-width: 678px) {
         margin-inline: 12px;
     }
+
+    @media (max-width: 1024px) {
+        margin-inline: 12px;
+    }
+
+    @media (max-width: 1280px) {
+        margin-inline: 12px;
+    }
 }
 
 :deep(.curate-card-image) {
