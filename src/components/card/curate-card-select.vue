@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// import curateimage from "@/assets/image/curate-image.png";
 import CircleEmptyIcon from "@/components/icons/circle-empty-icon.vue";
 import CircleFilledIcon from "@/components/icons/circle-filled-icon.vue";
 

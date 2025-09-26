@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { nextTick, ref } from 'vue';
+import { ref } from 'vue';
 import Dialog from '@/components/dialog.vue';
 import type { CreateCurationFormType, Gift } from '@/types/curation';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import CreateCurationForm from './create-curation-form.vue';
 import CreateCurationSuccess from './create-curation-success.vue';
 import type { FormMeta } from 'vee-validate';
 
 const router = useRouter()
-const route = useRoute()
 type CreateCurationProps = {
     showDialog: boolean;
     handleCloseDialog: () => void

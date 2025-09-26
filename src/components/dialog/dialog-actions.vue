@@ -7,7 +7,7 @@ const props = defineProps<DialogActionProps>();
 
 </script>
 <template>
-    <div class="step-two-actions">
+    <div class="dialog-actions">
         <Button v-if="showCancel" :label="props.cancelText ?? 'Cancel'" type="reset" @click="handleCancel"
             className="cancel-button" />
         <Button v-if="showSubmit" type="submit" :disabled="props.submitDisabled" :label="props.submitText ?? 'Save'"
@@ -16,7 +16,7 @@ const props = defineProps<DialogActionProps>();
 </template>
 
 <style scoped>
-.step-two-actions {
+.dialog-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;

@@ -14,7 +14,7 @@ import AgeRangeIcon from "@/components/icons/age-range-icon.vue";
 import Input from "@/components/input.vue";
 import AccountIcon from "@/components/icons/account-icon.vue";
 import { ageRanges, dummyGifts, ocassionData, relationshipData } from "@/data/dummy-curations";
-import CurateCardSelect from "./curate-card-select.vue";
+import CurateCardSelect from "@/components/card/curate-card-select.vue";
 
 const props = defineProps<{
     handleCreate: (data: CreateCurationFormType) => void;
@@ -104,7 +104,6 @@ function setupDialogListeners() {
         props.handleCancel()
     }
 
-    // Listen for custom events
     window.addEventListener('dialog-close', handleDialogClose)
     window.addEventListener('dialog-save', handleDialogSave)
     window.addEventListener('dialog-cancel', handleDialogCancel)
